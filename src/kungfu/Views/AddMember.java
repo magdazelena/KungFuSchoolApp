@@ -267,31 +267,33 @@ public class AddMember extends javax.swing.JFrame {
         			AddCaretaker addCaretaker = new AddCaretaker();
         			addCaretaker.setVisible(true);
         			addCaretaker.setTitle("Zarejestuj opiekuna");
-        			addCaretaker.addWindowListener(new java.awt.event.WindowAdapter() {
-            		    @SuppressWarnings("unused")
-    					@Override
-            		    public void windowClosing(java.awt.event.WindowEvent e) {
-            		        try {
-            		        	if(ct == null) {
-            		        		dispose();
-            		        		throw new Exception("Nie dodano opiekuna");
-            		        	}else {
-            		        		Student st = new Student(m, ct);
-            		        		if(stopien.getValue() != null) 
-            		        			st.setGrade(Integer.parseInt(stopien.getValue().toString()));
-            		        		s.save(st);
-            		        		s.save(m);
-            		        		s.save(p);
-            		        		s.save(ct);
-            		        		s.getTransaction().commit();
-            		            	s.close();
-            		        	}
-            		        }catch(Exception ex) {
-            		        	ex.printStackTrace();
-            		        }
-            		        
-            		    }
-            		});
+        			addCaretaker.setMember(m);
+        			addCaretaker.setPersonMember(p);
+//        			addCaretaker.addWindowListener(new java.awt.event.WindowAdapter() {
+//            		    @SuppressWarnings("unused")
+//    					@Override
+//            		    public void windowClosing(java.awt.event.WindowEvent e) {
+//            		        try {
+//            		        	if(ct == null) {
+//            		        		dispose();
+//            		        		throw new Exception("Nie dodano opiekuna");
+//            		        	}else {
+//            		        		Student st = new Student(m, ct);
+//            		        		if(stopien.getValue() != null) 
+//            		        			st.setGrade(Integer.parseInt(stopien.getValue().toString()));
+//            		        		s.save(st);
+//            		        		s.save(m);
+//            		        		s.save(p);
+//            		        		s.save(ct);
+//            		        		s.getTransaction().commit();
+//            		            	s.close();
+//            		        	}
+//            		        }catch(Exception ex) {
+//            		        	ex.printStackTrace();
+//            		        }
+//            		        
+//            		    }
+//            		});
     			}else {
     				Student st = new Student(m);
     				s.save(st);

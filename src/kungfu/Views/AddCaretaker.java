@@ -5,6 +5,19 @@
  */
 package kungfu.Views;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+import org.hibernate.Session;
+
+import com.sun.glass.ui.Window;
+
+import kungfu.Controller;
+import kungfu.Classes.Caretaker;
+import kungfu.Classes.Member;
+import kungfu.Classes.Person;
+import kungfu.Classes.Student;
+
 /**
  *
  * @author magda
@@ -14,6 +27,7 @@ public class AddCaretaker extends javax.swing.JFrame {
     /**
      * Creates new form AddCaretaker
      */
+	private Member member;
     public AddCaretaker() {
         initComponents();
     }
@@ -27,49 +41,51 @@ public class AddCaretaker extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        wpiszNazwiskoField = new javax.swing.JTextField();
+        dodajOpiekunaButton = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
+        wpiszImieField = new javax.swing.JTextField();
+        wpiszTelefonField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        matkaRadio = new javax.swing.JRadioButton();
+        ojciecRadio = new javax.swing.JRadioButton();
+        innyRadio = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        listaOpiekun = new javax.swing.JList<>();
+        wybierzListaRadio = new javax.swing.JRadioButton();
+        utworzRadio = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField2.setText("Wpisz nazwisko");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        wpiszNazwiskoField.setToolTipText("Wpisz nazwisko");
+        wpiszNazwiskoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                wpiszNazwiskoFieldActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Dodaj nowego opiekuna członka");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        dodajOpiekunaButton.setText("Dodaj nowego opiekuna członka");
+        dodajOpiekunaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                dodajOpiekunaButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Anuluj");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        anulujButton.setText("Anuluj");
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                anulujButtonActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("Wpisz imię");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        wpiszImieField.setToolTipText("Wpisz imię");
+        wpiszImieField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                wpiszImieFieldActionPerformed(evt);
             }
         });
 
@@ -79,29 +95,71 @@ public class AddCaretaker extends javax.swing.JFrame {
         jLabel6.setText("Dodaj nowego opiekuna dla "+getName());
 
         jLabel2.setText("Nazwisko");
-
+        jLabel3.setText("Telefon");
+        wpiszTelefonField.setToolTipText("Podaj numer telefonu");
         jLabel7.setText("Rola");
 
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Matka");
+        matkaRadio.setSelected(true);
+        matkaRadio.setText("Matka");
 
-        jRadioButton2.setText("Ojciec");
+        ojciecRadio.setText("Ojciec");
 
-        jRadioButton3.setText("Inny");
+        innyRadio.setText("Inny");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        innyRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ojciecRadio.setSelected(false);
+                matkaRadio.setSelected(false);
+            }
         });
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.setEnabled(false);
-        jScrollPane1.setViewportView(jList1);
+        ojciecRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	innyRadio.setSelected(false);
+                matkaRadio.setSelected(false);
+            }
+        });
+        matkaRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	ojciecRadio.setSelected(false);
+               innyRadio.setSelected(false);
+            }
+        });
+        
+        CaretakerList ctrList = new CaretakerList();
+        listaOpiekun.setModel(ctrList);
+        listaOpiekun.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaOpiekun.setEnabled(false);
+        jScrollPane1.setViewportView(listaOpiekun);
 
-        jRadioButton4.setText("Wybierz opiekuna z listy");
+        wybierzListaRadio.setText("Wybierz opiekuna z listy");
 
-        jRadioButton5.setSelected(true);
-        jRadioButton5.setText("Dodaj nowego opiekuna");
+        utworzRadio.setSelected(true);
+        utworzRadio.setText("Dodaj nowego opiekuna");
+        
+        utworzRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wybierzListaRadio.setSelected(false);
+                listaOpiekun.setEnabled(false);
+                wpiszImieField.setEnabled(true);
+                wpiszNazwiskoField.setEnabled(true);
+                ojciecRadio.setEnabled(true);
+                matkaRadio.setEnabled(true);
+                innyRadio.setEnabled(true);
+                wpiszTelefonField.setEnabled(true);
+            }
+        });
+        wybierzListaRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                utworzRadio.setSelected(false);
+                listaOpiekun.setEnabled(true);
+                wpiszImieField.setEnabled(false);
+                wpiszNazwiskoField.setEnabled(false);
+                ojciecRadio.setEnabled(false);
+                matkaRadio.setEnabled(false);
+                innyRadio.setEnabled(false);
+                wpiszTelefonField.setEnabled(false);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,22 +174,24 @@ public class AddCaretaker extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wpiszImieField, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wpiszNazwiskoField, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wpiszTelefonField, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(matkaRadio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton2)
+                                .addComponent(ojciecRadio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton3))
-                            .addComponent(jRadioButton4)
-                            .addComponent(jRadioButton5))
+                                .addComponent(innyRadio))
+                            .addComponent(wybierzListaRadio)
+                            .addComponent(utworzRadio))
                         .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dodajOpiekunaButton, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                            .addComponent(anulujButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
@@ -145,50 +205,81 @@ public class AddCaretaker extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dodajOpiekunaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton4)
+                        .addComponent(wybierzListaRadio)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton5)
+                        .addComponent(utworzRadio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wpiszImieField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wpiszNazwiskoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wpiszTelefonField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3))))
+                            .addComponent(matkaRadio)
+                            .addComponent(ojciecRadio)
+                            .addComponent(innyRadio))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void wpiszNazwiskoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszNazwiskoFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_wpiszNazwiskoFieldActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_anulujButtonActionPerformed
+
+    private void wpiszImieFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszImieFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_wpiszImieFieldActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+    private void dodajOpiekunaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajOpiekunaButtonActionPerformed
+        try {
+        	if(utworzRadio.isSelected()) {
+        		Caretaker.Type t = null;
+        		if(matkaRadio.isSelected()) t = Caretaker.Type.Mother;
+        		if(ojciecRadio.isSelected()) t = Caretaker.Type.Father;
+        		if(innyRadio.isSelected()) t = Caretaker.Type.Other;
+        		Person p = new Person(wpiszImieField.getText(), wpiszNazwiskoField.getText(), wpiszTelefonField.getText());
+        		Caretaker cr = new Caretaker(p, t);
+        		Student s = new Student(member, cr);
+        		Session session = Controller.getSession();
+        		session.beginTransaction();
+        		session.save(member);
+        		session.save(personMember);
+        		session.save(p);
+        		session.save(cr);
+        		session.save(s);
+        		session.getTransaction().commit();
+        		session.close();
+        		this.dispose();
+        	}
+        }catch(Exception e) {
+        	JOptionPane.showMessageDialog(null, "Sprawdz poprawność wprowadzonych danych");
+        }
+    }//GEN-LAST:event_dodajOpiekunaButtonActionPerformed
+    private Person personMember;
+    public void setPersonMember(Person person) {
+    	this.personMember = person;
+    }
+    public void setMember(Member member) {
+    	this.member = member;
+    }
     /**
      * @param args the command line arguments
      */
@@ -225,20 +316,22 @@ public class AddCaretaker extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton dodajOpiekunaButton;
+    private javax.swing.JButton anulujButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JList<String> listaOpiekun;
+    private javax.swing.JRadioButton matkaRadio;
+    private javax.swing.JRadioButton ojciecRadio;
+    private javax.swing.JRadioButton innyRadio;
+    private javax.swing.JRadioButton wybierzListaRadio;
+    private javax.swing.JRadioButton utworzRadio;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField wpiszImieField;
+    private javax.swing.JTextField wpiszNazwiskoField;
+    private javax.swing.JTextField wpiszTelefonField;
     // End of variables declaration//GEN-END:variables
 }

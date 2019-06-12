@@ -28,14 +28,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" pref="94" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="254" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="0" min="-2" pref="254" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
-                          <Component id="jTextField4" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
-                          <Component id="jTextField3" alignment="0" min="-2" pref="254" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="94" max="-2" attributes="0"/>
+                              <Component id="jTextField1" pref="254" max="32767" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                              <Component id="jTextField2" alignment="0" pref="254" max="32767" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="jTextField4" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                              <Component id="jTextField3" alignment="0" pref="254" max="32767" attributes="0"/>
+                              <Component id="podajTelefon" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel8" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -94,15 +98,13 @@
                   <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextField5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="jButton3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel4" min="-2" pref="16" max="-2" attributes="0"/>
@@ -112,7 +114,14 @@
                       <Component id="jLabel3" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel8" min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="podajTelefon" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton4" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -222,6 +231,16 @@
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Stopie&#x144; (opcjonalnie"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="podajTelefon">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="podaj numer telefonu"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Numer telefonu"/>
       </Properties>
     </Component>
   </SubComponents>
