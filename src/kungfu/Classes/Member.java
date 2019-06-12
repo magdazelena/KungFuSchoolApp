@@ -61,7 +61,7 @@ public class Member {
 	   }
 	    
 	   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-	   private List<MemberTeam> getMemberTeams(){
+	   public List<MemberTeam> getMemberTeams(){
 		   return this.memberTeams;
 	   }
 	   public void addMemberTeam(MemberTeam pg) {

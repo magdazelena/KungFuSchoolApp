@@ -37,11 +37,11 @@
 
          <!--Drop and re-create the database schema on startup-->
          <!--  <property name="hbmdl.auto">create-drop</property>-->
-      	<property name="hibernate.hbm2ddl.auto">create</property> 
+      	<property name="hibernate.hbm2ddl.auto">update</property> 
 		<property name="current_session_context_class">thread</property>  
         <!-- Enable Hibernate stats in the logs -->
         <property name="hibernate.generate_statistics">false</property>
-
+	<property name="hibernate.enable_lazy_load_no_trans">true</property>
         <!-- Full names the annotated entity class -->
         <mapping class="kungfu.Classes.Person"/>
         <mapping class="kungfu.Classes.Member"/>

@@ -44,6 +44,13 @@ public class Controller {
 			}
 		}
 		
+		public static Session getSession() {
+			return sessionFactory.openSession();
+		}
+//		public void closeSession() {
+//			session.getTransaction().commit();
+//			session.close();
+//		}
 		public static void generateData() throws Exception {
 			//test data
 			List<String> phones = new ArrayList<>();

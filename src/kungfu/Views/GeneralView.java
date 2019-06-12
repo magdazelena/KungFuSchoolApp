@@ -115,32 +115,10 @@ public class GeneralView extends javax.swing.JFrame {
         jTextField1.setText("Wpisz hasło by wyszukać");
 
         jButton5.setText("Szukaj");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nr grupy", "Dni zajęć", "Godziny zajęć"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+      //Grupy
+        TeamTable teamTableModel = new TeamTable();
+        jTable1.setModel(teamTableModel);
         jTable1.setColumnSelectionAllowed(true);
-        jTable1.setNextFocusableComponent(this);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -216,29 +194,8 @@ public class GeneralView extends javax.swing.JFrame {
         jPanel2.getAccessibleContext().setAccessibleName("Zakładka zarządzania moimi grupami");
         jPanel2.getAccessibleContext().setAccessibleDescription("Tu możesz wykonać akcje dla grup");
 
-        UczniowieTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Imię i nazwisko", "Opiekun", "Numer grupy"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        MemberTable memberTableModel = new MemberTable();
+        UczniowieTable.setModel(memberTableModel);
         UczniowieTable.setColumnSelectionAllowed(true);
         UczniowieTable.getTableHeader().setReorderingAllowed(false);
         UczniowieTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -247,7 +204,7 @@ public class GeneralView extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(UczniowieTable);
-        UczniowieTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        UczniowieTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         jTextField2.setText("Wpisz hasło by wyszukać");
 
