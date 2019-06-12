@@ -76,7 +76,7 @@ public class AddCaretaker extends javax.swing.JFrame {
         jLabel1.setText("Imię:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("Dodaj nowego opiekuna dla {Imię} {Nazwisko}");
+        jLabel6.setText("Dodaj nowego opiekuna dla "+getName());
 
         jLabel2.setText("Nazwisko");
 

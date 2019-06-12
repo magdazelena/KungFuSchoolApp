@@ -5,6 +5,22 @@
  */
 package kungfu.Views;
 
+import java.awt.event.ActionEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
+
+import org.hibernate.Session;
+
+import kungfu.Controller;
+import kungfu.Classes.Caretaker;
+import kungfu.Classes.Master;
+import kungfu.Classes.Member;
+
+import kungfu.Classes.Person;
+import kungfu.Classes.Student;
+
 /**
  *
  * @author magda
@@ -27,30 +43,32 @@ public class AddMember extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        wpiszImieField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        wpiszNazwiskoField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        wpiszPoprzedniKlubField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        wpiszDataUrField = new javax.swing.JTextField();
+        wpiszSkladkaField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        dodajCzlonkaButton = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        studentRadio = new javax.swing.JRadioButton();
+        mistrzRadio = new javax.swing.JRadioButton();
+        stopien = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
+        podajTelefon = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("Wpisz imię");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        wpiszImieField.setText("Wpisz imię");
+        wpiszImieField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                wpiszImieFieldActionPerformed(evt);
             }
         });
 
@@ -58,58 +76,66 @@ public class AddMember extends javax.swing.JFrame {
 
         jLabel2.setText("Nazwisko");
 
-        jTextField2.setText("Wpisz nazwisko");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        wpiszNazwiskoField.setText("Wpisz nazwisko");
+        wpiszNazwiskoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                wpiszNazwiskoFieldActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Poprzedni klub (opcjonalnie)");
 
-        jTextField3.setText("Poprzedni klub");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        wpiszPoprzedniKlubField.setText("Poprzedni klub");
+        wpiszPoprzedniKlubField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                wpiszPoprzedniKlubFieldActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Data urodzenia (dd/mm/rr)");
+        jLabel4.setText("Data urodzenia (dd/mm/rrrr)");
 
-        jTextField4.setText("dd/mm/rr");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        wpiszDataUrField.setText("dd/mm/rrrr");
+        wpiszDataUrField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                wpiszDataUrFieldActionPerformed(evt);
             }
         });
 
-        jTextField5.setText("Wpisz wartość");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        wpiszSkladkaField.setText("Wpisz wartość");
+        wpiszSkladkaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                wpiszSkladkaFieldActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Składka miesięczna");
 
-        jButton3.setText("Dodaj nowego członka");
-
-        jButton4.setText("Anuluj");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        dodajCzlonkaButton.setText("Dodaj nowego członka");
+        dodajCzlonkaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                dodajCzlonkaActionPerformed(evt);
+            }
+        });
+        anulujButton.setText("Anuluj");
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anulujButtonActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Dodaj nowego członka");
 
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Student");
+        studentRadio.setSelected(true);
+        studentRadio.setText("Student");
 
-        jRadioButton2.setText("Mistrz");
+        mistrzRadio.setText("Mistrz");
 
         jLabel7.setText("Stopień (opcjonalnie");
+
+        podajTelefon.setText("podaj numer telefonu");
+
+        jLabel8.setText("Numer telefonu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,26 +146,29 @@ public class AddMember extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(wpiszImieField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(wpiszNazwiskoField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(wpiszDataUrField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(wpiszPoprzedniKlubField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                .addComponent(podajTelefon))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(dodajCzlonkaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(anulujButton, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton1)
+                                    .addComponent(studentRadio)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(wpiszSkladkaField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(stopien, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(mistrzRadio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(jLabel7))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
@@ -157,67 +186,140 @@ public class AddMember extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(wpiszImieField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(studentRadio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2)))
+                        .addComponent(mistrzRadio)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(wpiszNazwiskoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stopien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wpiszSkladkaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dodajCzlonkaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wpiszDataUrField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(wpiszPoprzedniKlubField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(podajTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void wpiszImieFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszImieFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_wpiszImieFieldActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void wpiszNazwiskoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszNazwiskoFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_wpiszNazwiskoFieldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void wpiszPoprzedniKlubFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszPoprzedniKlubFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_wpiszPoprzedniKlubFieldActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void wpiszDataUrFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszDateUrFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_wpiszDateUrFieldActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void wpiszSkladkaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszSkladkeFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_wpiszSkladkeFieldActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_anulujButtonActionPerformed
+    private void dodajCzlonkaActionPerformed(ActionEvent evt) {
+		try {
+			
+        	Person p = new Person(wpiszImieField.getText(), wpiszNazwiskoField.getText(), podajTelefon.getText());
+        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        	LocalDate date = LocalDate.parse(wpiszDataUrField.getText(), formatter);
+        	Member m = new Member(p, date, Integer.parseInt(wpiszSkladkaField.getText()));
 
+        	Session s = Controller.getSession();
+        	s.beginTransaction();
+        	
+    		if(studentRadio.isSelected()) {
+    			if(m.checkIfMinor()) {
+    				Caretaker ct = null;
+        			AddCaretaker addCaretaker = new AddCaretaker();
+        			addCaretaker.setVisible(true);
+        			addCaretaker.setTitle("Zarejestuj opiekuna");
+        			addCaretaker.addWindowListener(new java.awt.event.WindowAdapter() {
+            		    @SuppressWarnings("unused")
+    					@Override
+            		    public void windowClosing(java.awt.event.WindowEvent e) {
+            		        try {
+            		        	if(ct == null) {
+            		        		dispose();
+            		        		throw new Exception("Nie dodano opiekuna");
+            		        	}else {
+            		        		Student st = new Student(m, ct);
+            		        		if(stopien.getValue() != null) 
+            		        			st.setGrade(Integer.parseInt(stopien.getValue().toString()));
+            		        		s.save(st);
+            		        		s.save(m);
+            		        		s.save(p);
+            		        		s.save(ct);
+            		        		s.getTransaction().commit();
+            		            	s.close();
+            		        	}
+            		        }catch(Exception ex) {
+            		        	ex.printStackTrace();
+            		        }
+            		        
+            		    }
+            		});
+    			}else {
+    				Student st = new Student(m);
+    				s.save(st);
+    				s.save(p);
+    	        	s.save(m);
+    	        	s.getTransaction().commit();
+    	        	s.close();
+    			}    			
+        	}else {
+        		//we in master
+        		if(m.checkIfMinor()) {
+        			JOptionPane.showMessageDialog(null, "Mistrz nie może być niepełnoletni");
+        		}else {
+        			Master mst = new Master(m);
+        			s.save(mst);
+        			s.save(p);
+                	s.save(m);
+                	s.getTransaction().commit();
+                	s.close();
+        		}
+        	}
+        	this.dispose();
+        }catch(Exception e) {
+        	System.out.println(e);
+        	JOptionPane.showMessageDialog(getRootPane(), "Sprawdz czy dane wprowadzono poprawnie");
+        }
+		
+	}
     /**
      * @param args the command line arguments
      */
@@ -254,8 +356,8 @@ public class AddMember extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton dodajCzlonkaButton;
+    private javax.swing.JButton anulujButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -263,13 +365,15 @@ public class AddMember extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JRadioButton studentRadio;
+    private javax.swing.JRadioButton mistrzRadio;
+    private javax.swing.JSpinner stopien;
+    private javax.swing.JTextField wpiszImieField;
+    private javax.swing.JTextField wpiszNazwiskoField;
+    private javax.swing.JTextField wpiszPoprzedniKlubField;
+    private javax.swing.JTextField wpiszDataUrField;
+    private javax.swing.JTextField wpiszSkladkaField;
+    private javax.swing.JTextField podajTelefon;
     // End of variables declaration//GEN-END:variables
 }

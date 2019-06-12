@@ -14,7 +14,7 @@ public class Person {
 	
     private String name;
     private String lastName;
-    private List <String> phoneNumbers = null;
+    private String phone = null;
     /*mapping inheritance: */
     private Member member = null;
     private Employee employee = null;
@@ -23,10 +23,10 @@ public class Person {
   
     /*req*/
     public Person() {}
-    public Person(String name, String lastName, List<String> phones){
+    public Person(String name, String lastName, String phone){
         this.lastName = lastName;
         this.name = name;
-        this.phoneNumbers = phones;   
+        this.phone = phone;   
     }
     
     
@@ -88,19 +88,16 @@ public class Person {
     public String getFullName() {
     	return getName()+" "+getLastName();
     }
-    @ElementCollection
-    public List<String> getPhoneNumbers() {
-    	return this.phoneNumbers;
+    @Basic
+    public String getPhone() {
+    	return this.phone;
     }
-    public void setPhoneNumbers(List<String> numbers) {
-    	this.phoneNumbers = numbers;
-    }
-    public void addPhoneNumber(String number) {
-    	this.phoneNumbers.add(number);
+    public void setPhone(String number) {
+    	this.phone = number;
     }
 
     @Override
     public String toString() {
-        return String.format("Osoba: %s , telefony: %s,  id: %s (@%s)", getFullName(),  getPhoneNumbers(),  getId(), super.hashCode());
+        return String.format("Osoba: %s , telefony: %s,  id: %s (@%s)", getFullName(),  getPhone(),  getId(), super.hashCode());
     }
 }

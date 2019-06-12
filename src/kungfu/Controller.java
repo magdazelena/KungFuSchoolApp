@@ -53,9 +53,7 @@ public class Controller {
 //		}
 		public static void generateData() throws Exception {
 			//test data
-			List<String> phones = new ArrayList<>();
-			phones.add("7873097");
-			phones.add("500100100");
+			String phones = "78787979";
 			//people:
 			Person person1 = new Person("Ala", "Makota", phones);
 			Person person2 = new Person("Zosia", "Nowak", phones);
