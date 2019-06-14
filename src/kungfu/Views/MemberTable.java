@@ -11,18 +11,21 @@ public class MemberTable extends AbstractTableModel{
 
 	private List<Member> members = new ArrayList<>();
 	public MemberTable() {
-		this.updateData();
+		this.updateData("");
 	}
 	@SuppressWarnings("unchecked")
-	public void updateData() {
+	public void updateData(String params) {
 		Session s = Controller.getSession();
-		this.members = s.createQuery( "from Member" ).list();
+		if(params.length() ==0)
+			this.members = s.createQuery( "from Member" ).list();
+		else
+			this.members = s.createQuery("from Member where fk_person in (select id from kungfu.Classes.Person where name like '%"+params+"%' or lastName like '%"+params+"%')").list();
 		s.close();
 		this.fireTableDataChanged();
 	}
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -34,6 +37,7 @@ public class MemberTable extends AbstractTableModel{
 		if(colNr == 0) return "Imię i nazwisko";
 		if(colNr ==1) return "Opiekun prawny";
 		if(colNr ==2 ) return "Numer grupy";
+		if(colNr ==3) return "Status";
 		return "";
 	}
 
@@ -41,18 +45,21 @@ public class MemberTable extends AbstractTableModel{
 	public Object getValueAt(int rowNr, int colNr) {
 		Member member = members.get(rowNr);
 		if(colNr == 0) return member.getPerson().getFullName();
-		if(colNr == 1) return member.checkIfMinor() ? "Przypisano opiekuna" : "Brak";
+		if(colNr == 1) return member.checkIfMinor() ? member.getStudent().getCaretaker().getPerson().getFullName() : "Brak";
 		if(colNr == 2) {
 			if(member.getMemberTeams().size() == 0) {
 				return "Nie ustawiono";
 			}else {
 				String groups = "";
+				int i =0;
 				for(MemberTeam mt: member.getMemberTeams()) {
-					groups += mt.getTeam().getTeamNr().toString()+"\n";
+					groups +=  mt.getTeam().getTeamNr().toString()+ (i==member.getMemberTeams().size()-1?"":", ");
+					i++;
 				}
 				return groups;
 			}
 		}
+		if(colNr ==3 ) return member.getStatus();
 		
 		return null;
 	}

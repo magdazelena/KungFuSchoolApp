@@ -31,7 +31,7 @@ public class AddCaretaker extends javax.swing.JFrame {
     public AddCaretaker() {
         initComponents();
     }
-
+    private CaretakerList ctrList = new CaretakerList();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +92,7 @@ public class AddCaretaker extends javax.swing.JFrame {
         jLabel1.setText("Imię:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("Dodaj nowego opiekuna dla "+getName());
+        jLabel6.setText("Dodaj nowego opiekuna dla członka");
 
         jLabel2.setText("Nazwisko");
         jLabel3.setText("Telefon");
@@ -125,7 +125,7 @@ public class AddCaretaker extends javax.swing.JFrame {
             }
         });
         
-        CaretakerList ctrList = new CaretakerList();
+        
         listaOpiekun.setModel(ctrList);
         listaOpiekun.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaOpiekun.setEnabled(false);
@@ -264,6 +264,23 @@ public class AddCaretaker extends javax.swing.JFrame {
         		session.save(personMember);
         		session.save(p);
         		session.save(cr);
+        		session.save(s);
+        		session.getTransaction().commit();
+        		session.close();
+        		this.dispose();
+        	}else {
+        		if(listaOpiekun.isSelectionEmpty()) {
+        			JOptionPane.showMessageDialog(null, "Wybierz opiekuna z listy lub utwórz nowego");
+        			return;
+        		}
+        		int index = listaOpiekun.getSelectedIndex();
+        		Caretaker cr = ctrList.getElementAt(index);
+        		Student s = new Student(member, cr);
+        		Session session = Controller.getSession();
+        		session.beginTransaction();
+        		session.save(member);
+        		session.save(personMember);
+        		session.update(cr);
         		session.save(s);
         		session.getTransaction().commit();
         		session.close();

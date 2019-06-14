@@ -17,6 +17,7 @@ import kungfu.Classes.EquipmentSportive;
 import kungfu.Classes.Location;
 import kungfu.Classes.Master;
 import kungfu.Classes.Member;
+import kungfu.Classes.Member.Status;
 import kungfu.Classes.MemberTeam;
 import kungfu.Classes.Person;
 import kungfu.Classes.Rental;
@@ -136,6 +137,7 @@ public class Controller {
 			Rental rentManekin = new Rental(m2, manekin);
 			Rental rentMakiwara = new Rental(m1, makiwara);
 			rentMakiwara.setReturnDay(LocalDate.of(2020, 1, 1));
+			m1.setStatus(Status.Suspended);
 			//test data end
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();

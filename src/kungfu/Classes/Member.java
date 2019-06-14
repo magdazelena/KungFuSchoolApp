@@ -8,7 +8,10 @@ import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
+/**
+ * Member class
+ * @see java.lang.Object
+ */
 @Entity(name="Member")
 public class Member {
 	
@@ -18,7 +21,7 @@ public class Member {
 		private LocalDate joinDate;
 		private LocalDate birthDate;
 	    private Status status;
-	    private static Integer yearFee = 200;
+	    static Integer yearFee = 200;
 	    private Integer monthFee;
 	    private Person person = null;
 	    private Student student = null;
@@ -28,6 +31,13 @@ public class Member {
 	    private List<MemberTeam> memberTeams = new ArrayList<>();
 	    
 	    public Member() {}
+	    /**
+	     * Constructor
+	     * @param Person 
+	     * @param LocalDate birthday
+	     * @param Integer fee
+	     * @throws Exception
+	     */
 	    public Member(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
 	    	if(p == null) throw new Exception("Person must exist to become a member");
 	    	if(p.getMember() != null) throw new Exception("The person is already a member");
@@ -38,16 +48,28 @@ public class Member {
 	    	this.joinDate = LocalDate.now();
 	    	p.setMember(this);
 	    }
+	    /**
+	     * Gets id
+	     * @return long
+	     */
 	    @Id
 	    @GeneratedValue(generator="increment")
 	    @GenericGenerator(name="increment", strategy = "increment")
 	    public long getId() {
 	        return id;
 	    }
-
+/**
+ * Sets id
+ * @param long
+ */
 	    private void setId(long id) {
 	        this.id = id;
 	    }
+	    /**
+	     * Association
+	     * Gets Person
+	     * @return Person
+	     */
 	    //asocjacja
 	   @OneToOne
 	   @JoinColumn(name = "fk_person")
@@ -65,8 +87,8 @@ public class Member {
 		   return this.memberTeams;
 	   }
 	   public void addMemberTeam(MemberTeam pg) {
-		   if(this.getMemberTeams().isEmpty())
-			   setStatus(Status.Active);
+		   if(this.status == Status.New)
+			  this.setStatus(Status.Active);
 		   if(!this.getMemberTeams().contains(pg)) {
 			   getMemberTeams().add(pg);
 			   pg.setMember(this);

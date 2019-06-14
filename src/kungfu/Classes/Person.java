@@ -98,6 +98,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return String.format("Osoba: %s , telefony: %s,  id: %s (@%s)", getFullName(),  getPhone(),  getId(), super.hashCode());
+        return String.format("Osoba: %s , telefon: %s,  id: %s (@%s)", getFullName(),  getPhone(),  getId(), super.hashCode());
     }
 }

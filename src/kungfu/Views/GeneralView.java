@@ -5,6 +5,16 @@
  */
 package kungfu.Views;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import kungfu.Classes.Member;
+
 /**
  *
  * @author magda
@@ -17,7 +27,7 @@ public class GeneralView extends javax.swing.JFrame {
     public GeneralView() {
         initComponents();
     }
-
+    MemberTable memberTableModel = new MemberTable();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,13 +93,12 @@ public class GeneralView extends javax.swing.JFrame {
         szkolaLayout.setHorizontalGroup(
             szkolaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(szkolaLayout.createSequentialGroup()
-                .addGap(251, 251, 251)
                 .addGroup(szkolaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(zarzadzajPracownikamiButton, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(zarzadzajCzlonkamiButton, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(zarzadzajGrupamiButton, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(zarzadzajPlacowkamiButton, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
-                .addContainerGap(278, Short.MAX_VALUE))
+                )
         );
         szkolaLayout.setVerticalGroup(
             szkolaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,8 +157,8 @@ public class GeneralView extends javax.swing.JFrame {
         grupyLayout.setHorizontalGroup(
             grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(grupyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
                 .addGroup(grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(grupyLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,7 +168,7 @@ public class GeneralView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(szukajGrupyButton))
                             .addComponent(dodajGrupeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(36, 36, 36))
+                        )
                     .addGroup(grupyLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,13 +176,12 @@ public class GeneralView extends javax.swing.JFrame {
                             .addGroup(grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(zarzadzajCzlonkamiButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(zarzadzajCzlonkamiButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        )))
         );
         grupyLayout.setVerticalGroup(
             grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(grupyLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(grupyLayout.createSequentialGroup()
                         .addGroup(grupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(szukajGrupyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,15 +194,15 @@ public class GeneralView extends javax.swing.JFrame {
                         .addComponent(zarzadzajCzlonkamiButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(175, 175, 175)
                         .addComponent(dodajGrupeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE))
+               )
         );
 
         zakladki.addTab("Moje grupy", null, grupy, "Akcje zarządzania grupami");
         grupy.getAccessibleContext().setAccessibleName("Zakładka zarządzania moimi grupami");
         grupy.getAccessibleContext().setAccessibleDescription("Tu możesz wykonać akcje dla grup");
 
-        MemberTable memberTableModel = new MemberTable();
+        
         CzlonkowieTable.setModel(memberTableModel);
         CzlonkowieTable.setColumnSelectionAllowed(true);
         CzlonkowieTable.getTableHeader().setReorderingAllowed(false);
@@ -204,12 +212,17 @@ public class GeneralView extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(CzlonkowieTable);
-        CzlonkowieTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        CzlonkowieTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        poleWyszukaniaCzlonka2.setText("Wpisz hasło by wyszukać");
+        poleWyszukaniaCzlonka2.setToolTipText("Wpisz imie lub nazwisko by wyszukać");
 
         szukajCzlonkaButton.setText("Szukaj");
-
+        szukajCzlonkaButton.addActionListener(new java.awt.event.ActionListener() {
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		memberTableModel.updateData(poleWyszukaniaCzlonka2.getText());
+        		CzlonkowieTable.repaint();
+        	}
+        });
         dodajCzlonkaButton.setBackground(new java.awt.Color(12, 240, 20));
         dodajCzlonkaButton.setText("Dodaj nowego członka");
         dodajCzlonkaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -219,17 +232,14 @@ public class GeneralView extends javax.swing.JFrame {
                 	frame.setTitle("Szkoła kung fu - dodaj członka");
             		frame.setName("Szkoła kung fu - dodaj członka");
             		frame.setVisible(true);
-            		frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            		    @Override
-            		    public void windowClosing(java.awt.event.WindowEvent e) {
-            		        try {
-            		        	memberTableModel.updateData();
-            		        	repaint();
-            		        }catch(Exception ex) {
-            		        	ex.printStackTrace();
-            		        }
-            		    }
-            		});
+            		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            		frame.addHierarchyListener(new HierarchyListener() {
+        				@Override
+        				public void hierarchyChanged(HierarchyEvent arg0) {
+        					memberTableModel.updateData("");
+        					CzlonkowieTable.repaint();
+        				}
+                	  });
                 }catch(Exception e){
                 	e.printStackTrace();
                 }
@@ -245,7 +255,7 @@ public class GeneralView extends javax.swing.JFrame {
 
         wybierzCzlonkaLabel.setText("Wybierz członka z listy po lewej stronie");
 
-        przeniesCzlonkaButton.setText("Przenieś członka do innej grupy");
+        przeniesCzlonkaButton.setText("Przypisz członka do grupy");
         przeniesCzlonkaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 przeniesCzlonkaButtonActionPerformed(evt);
@@ -265,8 +275,7 @@ public class GeneralView extends javax.swing.JFrame {
         czlonkowieLayout.setHorizontalGroup(
             czlonkowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(czlonkowieLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(czlonkowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(czlonkowieLayout.createSequentialGroup()
@@ -279,13 +288,12 @@ public class GeneralView extends javax.swing.JFrame {
                         .addComponent(wypiszCzlonkaButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(przeniesCzlonkaButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(wykluczCzlonkaButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                )
         );
         czlonkowieLayout.setVerticalGroup(
             czlonkowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, czlonkowieLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addGroup(czlonkowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, czlonkowieLayout.createSequentialGroup()
+                .addGroup(czlonkowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(czlonkowieLayout.createSequentialGroup()
                         .addGroup(czlonkowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(szukajCzlonkaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,8 +308,8 @@ public class GeneralView extends javax.swing.JFrame {
                         .addComponent(wykluczCzlonkaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(104, 104, 104)
                         .addComponent(dodajCzlonkaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE))
+            		)
         );
 
         zakladki.addTab("Członkowie", null, czlonkowie, "Akcje zarządzania uczniami");
@@ -336,16 +344,29 @@ public class GeneralView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_zarzadzajCzlonkamiButtonActionPerformed
 
-    private void dodajCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajCzlonkaButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dodajCzlonkaButtonActionPerformed
-
+    
     private void CzlonkowieTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CzlonkowieTableMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_CzlonkowieTableMouseClicked
 
     private void przeniesCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przeniesCzlonkaButtonActionPerformed
-        // TODO add your handling code here:
+    	  int index = CzlonkowieTable.getSelectedRow();
+    	  if(CzlonkowieTable.getSelectedRows().length ==0) {
+    		  JOptionPane.showMessageDialog(null, "Wybierz członka z listy po lewej");
+    		  return;
+    	  }
+          Member m = memberTableModel.getMembers().get(index);
+          ChangeGroup change = new ChangeGroup();
+          change.setVisible(true);
+          change.setMember(m);
+          change.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          change.addHierarchyListener(new HierarchyListener() {
+				@Override
+				public void hierarchyChanged(HierarchyEvent arg0) {
+					memberTableModel.updateData("");
+					CzlonkowieTable.repaint();
+				}
+        	  });
     }//GEN-LAST:event_przeniesCzlonkaButtonActionPerformed
 
     private void wypiszCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wypiszCzlonkaButtonActionPerformed

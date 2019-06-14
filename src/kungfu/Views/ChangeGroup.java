@@ -5,6 +5,18 @@
  */
 package kungfu.Views;
 
+import java.awt.List;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
+import org.hibernate.Session;
+
+import kungfu.Controller;
+import kungfu.Classes.Member;
+import kungfu.Classes.MemberTeam;
+import kungfu.Classes.Team;
+
 /**
  *
  * @author magda
@@ -17,7 +29,7 @@ public class ChangeGroup extends javax.swing.JFrame {
     public ChangeGroup() {
         initComponents();
     }
-
+    private TeamList teamListModel = new TeamList();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,11 +40,11 @@ public class ChangeGroup extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        szukajButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        przepiszButton = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -42,26 +54,28 @@ public class ChangeGroup extends javax.swing.JFrame {
 
         jTextField1.setText("Wyszukaj grupę");
 
-        jButton2.setText("Szukaj");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        szukajButton.setText("Szukaj");
+        szukajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                szukajButtonActionPerformed(evt);
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setModel(teamListModel);
         jScrollPane1.setViewportView(jList1);
 
-        jButton3.setText("Przepisz członka do wybranej grupy");
-
-        jButton4.setText("Anuluj");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        przepiszButton.setText("Przepisz członka do wybranej grupy");
+        przepiszButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                przepiszButtonActionPerformed(evt);
+            }
+
+			
+        });
+        anulujButton.setText("Anuluj");
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anulujButtonActionPerformed(evt);
             }
         });
 
@@ -87,12 +101,12 @@ public class ChangeGroup extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2)))
+                                    .addComponent(szukajButton)))
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
+                            .addComponent(przepiszButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(anulujButton, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -112,7 +126,7 @@ public class ChangeGroup extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                    .addComponent(szukajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -120,23 +134,52 @@ public class ChangeGroup extends javax.swing.JFrame {
                         .addContainerGap(15, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(przepiszButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void szukajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szukajButtonActionPerformed
+        teamListModel.update(jTextField1.getText());
+        jList1.repaint();
+        
+    }//GEN-LAST:event_szukajButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_anulujButtonActionPerformed
+    private void przepiszButtonActionPerformed(ActionEvent evt) {
+		try {
+			Team team = teamListModel.getTeams().get(jList1.getSelectedIndex());
+			if(member.getStatus() != Member.Status.Active && member.getStatus() != Member.Status.New) {
+				JOptionPane.showMessageDialog(null, "Nie można przypisać do grupy zawieszonego lub wykluczonego członka");
+				this.dispose();
+				return;
+			}
+			java.util.List<MemberTeam> teams = member.getMemberTeams();
+			for(MemberTeam mt : teams) {
+				if(mt.getTeam().getTeamNr() == team.getTeamNr()) {
+					JOptionPane.showMessageDialog(null, "Członek już należy do tej grupy");
+					return;
+				}
+			}
+			MemberTeam mt = new MemberTeam(member, team);
+			Session s = Controller.getSession();
+			s.beginTransaction();
+			s.save(mt);
+			s.update(team);
+			s.update(member);
+			s.getTransaction().commit();
+			s.close();
+			this.dispose();
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Wybierz grupę z listy");
+		}
+	}
     /**
      * @param args the command line arguments
      */
@@ -173,9 +216,9 @@ public class ChangeGroup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton szukajButton;
+    private javax.swing.JButton przepiszButton;
+    private javax.swing.JButton anulujButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -184,4 +227,9 @@ public class ChangeGroup extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+    private Member member;
+	public void setMember(Member m) {
+		this.member = m;
+		
+	}
 }

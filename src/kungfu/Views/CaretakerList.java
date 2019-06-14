@@ -21,7 +21,7 @@ public class CaretakerList extends AbstractListModel{
 		s.close();
 	}
 	@Override
-	public Object getElementAt(int arg0) {
+	public Caretaker getElementAt(int arg0) {
 		// TODO Auto-generated method stub
 		return caretakers.get(arg0);
 	}

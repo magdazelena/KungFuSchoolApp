@@ -6,9 +6,12 @@
 package kungfu.Views;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.hibernate.Session;
@@ -65,7 +68,7 @@ public class AddMember extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        wpiszImieField.setText("Wpisz imię");
+        wpiszImieField.setToolTipText("Wpisz imię");
         wpiszImieField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wpiszImieFieldActionPerformed(evt);
@@ -76,7 +79,7 @@ public class AddMember extends javax.swing.JFrame {
 
         jLabel2.setText("Nazwisko");
 
-        wpiszNazwiskoField.setText("Wpisz nazwisko");
+        wpiszNazwiskoField.setToolTipText("Wpisz nazwisko");
         wpiszNazwiskoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wpiszNazwiskoFieldActionPerformed(evt);
@@ -85,7 +88,7 @@ public class AddMember extends javax.swing.JFrame {
 
         jLabel3.setText("Poprzedni klub (opcjonalnie)");
 
-        wpiszPoprzedniKlubField.setText("Poprzedni klub");
+        wpiszPoprzedniKlubField.setToolTipText("Poprzedni klub");
         wpiszPoprzedniKlubField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wpiszPoprzedniKlubFieldActionPerformed(evt);
@@ -94,14 +97,14 @@ public class AddMember extends javax.swing.JFrame {
 
         jLabel4.setText("Data urodzenia (dd/mm/rrrr)");
 
-        wpiszDataUrField.setText("dd/mm/rrrr");
+        wpiszDataUrField.setToolTipText("dd/mm/rrrr");
         wpiszDataUrField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wpiszDataUrFieldActionPerformed(evt);
             }
         });
 
-        wpiszSkladkaField.setText("Wpisz wartość");
+        wpiszSkladkaField.setToolTipText("Wpisz wartość");
         wpiszSkladkaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wpiszSkladkaFieldActionPerformed(evt);
@@ -131,9 +134,9 @@ public class AddMember extends javax.swing.JFrame {
 
         mistrzRadio.setText("Mistrz");
 
-        jLabel7.setText("Stopień (opcjonalnie");
+        jLabel7.setText("Stopień (opcjonalnie)");
 
-        podajTelefon.setText("podaj numer telefonu");
+        podajTelefon.setToolTipText("podaj numer telefonu");
 
         jLabel8.setText("Numer telefonu");
 
@@ -178,7 +181,7 @@ public class AddMember extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
@@ -221,7 +224,7 @@ public class AddMember extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(podajTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anulujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+               )
         );
 
         pack();
@@ -257,7 +260,9 @@ public class AddMember extends javax.swing.JFrame {
         	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         	LocalDate date = LocalDate.parse(wpiszDataUrField.getText(), formatter);
         	Member m = new Member(p, date, Integer.parseInt(wpiszSkladkaField.getText()));
-
+        	if(wpiszPoprzedniKlubField.getText().length() >0) {
+        		m.setFormerClub(wpiszPoprzedniKlubField.getText());
+        	}
         	Session s = Controller.getSession();
         	s.beginTransaction();
         	
@@ -269,31 +274,13 @@ public class AddMember extends javax.swing.JFrame {
         			addCaretaker.setTitle("Zarejestuj opiekuna");
         			addCaretaker.setMember(m);
         			addCaretaker.setPersonMember(p);
-//        			addCaretaker.addWindowListener(new java.awt.event.WindowAdapter() {
-//            		    @SuppressWarnings("unused")
-//    					@Override
-//            		    public void windowClosing(java.awt.event.WindowEvent e) {
-//            		        try {
-//            		        	if(ct == null) {
-//            		        		dispose();
-//            		        		throw new Exception("Nie dodano opiekuna");
-//            		        	}else {
-//            		        		Student st = new Student(m, ct);
-//            		        		if(stopien.getValue() != null) 
-//            		        			st.setGrade(Integer.parseInt(stopien.getValue().toString()));
-//            		        		s.save(st);
-//            		        		s.save(m);
-//            		        		s.save(p);
-//            		        		s.save(ct);
-//            		        		s.getTransaction().commit();
-//            		            	s.close();
-//            		        	}
-//            		        }catch(Exception ex) {
-//            		        	ex.printStackTrace();
-//            		        }
-//            		        
-//            		    }
-//            		});
+        			addCaretaker.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        			addCaretaker.addHierarchyListener(new HierarchyListener() {
+        				@Override
+        				public void hierarchyChanged(HierarchyEvent arg0) {
+        					dispose();
+        				}
+                	  });
     			}else {
     				Student st = new Student(m);
     				s.save(st);
@@ -301,6 +288,7 @@ public class AddMember extends javax.swing.JFrame {
     	        	s.save(m);
     	        	s.getTransaction().commit();
     	        	s.close();
+    	        	dispose();
     			}    			
         	}else {
         		//we in master
@@ -313,9 +301,9 @@ public class AddMember extends javax.swing.JFrame {
                 	s.save(m);
                 	s.getTransaction().commit();
                 	s.close();
+                	dispose();
         		}
         	}
-        	this.dispose();
         }catch(Exception e) {
         	System.out.println(e);
         	JOptionPane.showMessageDialog(getRootPane(), "Sprawdz czy dane wprowadzono poprawnie");

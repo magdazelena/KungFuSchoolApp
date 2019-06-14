@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import kungfu.Classes.Member.Status;
+
 @Entity(name="Student")
 public class Student {
 	private long id;
@@ -69,11 +71,12 @@ public class Student {
 		return member;
 	}
 
-	public void setMember(Member member) {
-		if(this.member == null) {
+	public void setMember(Member member) throws Exception {
+		if(member == null) throw new Exception("Can't set member to null");
+		  if(getMember() == null)
 			this.member = member;
 			
-		}
+		
 	}
 	@ManyToOne
 	public Caretaker getCaretaker() {
@@ -83,5 +86,13 @@ public class Student {
 	public void setCaretaker(Caretaker caretaker) {
 		this.caretaker = caretaker;
 	}
+
+	public void payFee() {
+		if(getMember().getStatus() ==Status.Suspended) {
+			getMember().setStatus(Status.Active);
+		}
+		System.out.println("Opłacono składkę w wysokości "+ getMember().getMonthFee());
+	}
+
 	
 }
