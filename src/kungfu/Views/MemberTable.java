@@ -53,7 +53,7 @@ public class MemberTable extends AbstractTableModel{
 				String groups = "";
 				int i =0;
 				for(MemberTeam mt: member.getMemberTeams()) {
-					groups +=  mt.getTeam().getTeamNr().toString()+ (i==member.getMemberTeams().size()-1?"":", ");
+					if(mt.getLeaveDate() == null) groups +=  mt.getTeam().getTeamNr().toString()+ (i==member.getMemberTeams().size()-1?"":", ");
 					i++;
 				}
 				return groups;

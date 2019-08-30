@@ -380,7 +380,22 @@ public class GeneralView extends javax.swing.JFrame {
     }//GEN-LAST:event_przeniesCzlonkaButtonActionPerformed
 
     private void wypiszCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wypiszCzlonkaButtonActionPerformed
-       
+    	int index = CzlonkowieTable.getSelectedRow();
+  	  if(CzlonkowieTable.getSelectedRows().length ==0) {
+  		  JOptionPane.showMessageDialog(null, "Wybierz członka z listy po lewej");
+  		  return;
+  	  }
+        Member m = memberTableModel.getMembers().get(index);
+        RemoveTeam change = new RemoveTeam(m);
+        change.setVisible(true);
+        change.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        change.addHierarchyListener(new HierarchyListener() {
+				@Override
+				public void hierarchyChanged(HierarchyEvent arg0) {
+					memberTableModel.updateData("");
+					CzlonkowieTable.repaint();
+				}
+      	  });
     	
     }//GEN-LAST:event_wypiszCzlonkaButtonActionPerformed
 

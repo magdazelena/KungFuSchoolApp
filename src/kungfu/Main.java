@@ -1,6 +1,5 @@
 package kungfu;
 
-import javax.swing.JFrame;
 
 import kungfu.Views.GeneralView;
 

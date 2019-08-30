@@ -161,7 +161,7 @@ public class ChangeGroup extends javax.swing.JFrame {
 			}
 			java.util.List<MemberTeam> teams = member.getMemberTeams();
 			for(MemberTeam mt : teams) {
-				if(mt.getTeam().getTeamNr() == team.getTeamNr()) {
+				if(mt.getTeam().getTeamNr() == team.getTeamNr() && mt.getLeaveDate() == null) {
 					JOptionPane.showMessageDialog(null, "Członek już należy do tej grupy");
 					return;
 				}
