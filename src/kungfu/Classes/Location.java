@@ -29,15 +29,15 @@ public class Location {
 	private Boolean isHQ;
 	private List<Team> teams = new ArrayList<>();
 	private Location() {}
-	/**
-	 * Constructor
-	 * @param School school
-	 * @param String street
-	 * @param int number
-	 * @param int zip
-	 * @param String city
-	 * @param Boolean isHq
-	 */
+/**
+ * 
+ * @param school
+ * @param street
+ * @param number
+ * @param zip
+ * @param city
+ * @param isHq
+ */
 	private Location(School school, String street, Integer number, Integer zip, String city, Boolean isHq) {
 		this.street =street;
 		this.number = number;
@@ -65,7 +65,7 @@ public class Location {
 	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -75,14 +75,14 @@ public class Location {
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
     }
 	/**
 	 * Gets street
-	 * @return String
+	 * @return street
 	 */
 	@Basic
 	public String getStreet() {
@@ -90,14 +90,14 @@ public class Location {
 	}
 	/**
 	 * Sets street
-	 * @param String
+	 * @param street
 	 */
 	public void setStreet(String street) {
 		this.street = street;
 	}
 	/**
 	 * Gets number
-	 * @return integer
+	 * @return number
 	 */
 	@Basic
 	public Integer getNumber() {
@@ -105,14 +105,14 @@ public class Location {
 	}
 	/**
 	 * Sets number
-	 * @param integer
+	 * @param number
 	 */
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
 	/**
 	 * Gets zipcode
-	 * @return integer
+	 * @return zipcode
 	 */
 	@Basic
 	public Integer getZipcode() {
@@ -120,14 +120,14 @@ public class Location {
 	}
 	/**
 	 * Sets zipcode
-	 * @param integer
+	 * @param zipcode
 	 */
 	public void setZipcode(Integer zipcode) {
 		this.zipcode = zipcode;
 	}
 	/**
 	 * Gets city
-	 * @return String
+	 * @return city
 	 */
 	@Basic
 	public String getCity() {
@@ -135,7 +135,7 @@ public class Location {
 	}
 	/**
 	 * Sets city
-	 * @param string
+	 * @param city
 	 */
 	public void setCity(String city) {
 		this.city = city;
@@ -143,7 +143,7 @@ public class Location {
 	/**
 	 * Association
 	 * Gets school
-	 * @return School
+	 * @return school
 	 */
 	@ManyToOne
 	@JoinColumn(name="fk_school")
@@ -152,14 +152,14 @@ public class Location {
 	}
 	/**
 	 * Sets School
-	 * @param School
+	 * @param school
 	 */
 	public void setSchool(School school) {
 		this.school = school;
 	}
 	/**
 	 * Gets headquarters
-	 * @return boolean
+	 * @return isHQ
 	 */
 	@Basic
 	public Boolean getIsHQ() {
@@ -167,7 +167,7 @@ public class Location {
 	}
 	/**
 	 * Sets headquarters
-	 * @param boolean
+	 * @param isHQ
 	 */
 	public void setIsHQ(Boolean isHQ) {
 		this.isHQ = isHQ;
@@ -175,7 +175,7 @@ public class Location {
 	/**
 	 * Association
 	 * Gets teams
-	 * @return Teams list
+	 * @return teams
 	 */
 	@OneToMany(mappedBy="location")
 	public List<Team> getTeams() {
@@ -183,14 +183,14 @@ public class Location {
 	}
 	/**
 	 * Sets teams list
-	 * @param Team list
+	 * @param teams
 	 */
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
 	/**
 	 * Add team
-	 * @param Team
+	 * @param team
 	 */
 	public void addTeam(Team team) {
 		if(!this.teams.contains(team)) {
@@ -199,7 +199,7 @@ public class Location {
 	}
 	/**
 	 * Remove team
-	 * @param Team
+	 * @param team
 	 */
 	public void removeTeam(Team team) {
 		if(this.teams.contains(team)) {

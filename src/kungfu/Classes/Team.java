@@ -20,13 +20,12 @@ public class Team {
 	private List<String> hours = new ArrayList<>();
 	private Location location = null;
 	public Team() {}
-	/**
-	    * Team constructor
-	    * @param nr is unique integer
-	    * @param master is registered object
-	    * @throws Exception id master is set to null 
-	    
-	    */
+/**
+ * Constructor
+ * @param nr
+ * @param master
+ * @throws Exception
+ */
 	public Team(Integer nr, Master master) throws Exception {
 		if(master == null) throw new Exception("Master may not be null");
 		this.TeamNr = nr;
@@ -34,7 +33,7 @@ public class Team {
 	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	 @Id
     @GeneratedValue(generator="increment")
@@ -44,14 +43,14 @@ public class Team {
     }
 /**
  * Sets id
- * @param long
+ * @param id
  */
     private void setId(long id) {
         this.id = id;
     }
     /**
      * Gets team nr
-     * @return integer
+     * @return TeamNr
      */
 	   @Basic 
 	   @Column(unique=true)
@@ -60,7 +59,7 @@ public class Team {
 	   }
 	   /**
 	    * Sets team nr 
-	    * @param nr - integer
+	    * @param nr
 	    */
 	   public void setTeamNr(Integer nr) {
 		   this.TeamNr = nr;
@@ -68,7 +67,7 @@ public class Team {
 	   /**
 	    * Gets association classes connecting team and member
 	    * 
-	    * @return list of MemberTeam
+	    * @return memberTeams
 	    */
 	   @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
 	   private List<MemberTeam> getMemberTeams(){
@@ -76,7 +75,7 @@ public class Team {
 	   }
 	   /**
 	    * Adding single MemberTeam object to list
-	    * @param MemberTeam object
+	    * @param pg
 	    */
 	   public void addMemberTeam(MemberTeam pg) {
 		   getMemberTeams().add(pg);
@@ -84,7 +83,7 @@ public class Team {
 	   }
 	   /**
 	    * Removing single MemberTeam from list
-	    * @param MemberTeam object
+	    * @param pg
 	    */
 	   public void removeMemberTeam(MemberTeam pg) {
 		   getMemberTeams().remove(pg);
@@ -92,7 +91,7 @@ public class Team {
 	   }
 	   /**
 	    * Sets list of MemberTeams
-	    * @param list of MemberTeam
+	    * @param pg
 	    */
 	   public void setMemberTeams(List<MemberTeam> pg) {
 		   this.memberTeams = pg;
@@ -106,7 +105,7 @@ public class Team {
 	   }
 	   /**
 	    * Association of team and master
-	    * @return Master
+	    * @return master
 	    */
 	@ManyToOne
 	public Master getMaster() {
@@ -125,7 +124,7 @@ public class Team {
 	}
 	/**
 	 * Gets days of team
-	 * @return string list
+	 * @return days
 	 */
 	@ElementCollection
 	public List<String> getDays() {
@@ -133,7 +132,7 @@ public class Team {
 	}
 	/**
 	 * Sets days of team
-	 * @param list string 
+	 * @param days
 	 */
 	public void setDays(List<String> days) {
 		this.days = days;
@@ -141,7 +140,7 @@ public class Team {
 	/**
 	 * Gets hours of team
 	 * 
-	 * @return string list
+	 * @return hours
 	 */
 	@ElementCollection
 	public List<String> getHours() {
@@ -149,14 +148,14 @@ public class Team {
 	}
 	/**
 	 * Sets hours of team
-	 * @param string list
+	 * @param hours
 	 */
 	public void setHours(List<String> hours) {
 		this.hours = hours;
 	}
 	/**
 	 * Gets Location
-	 * @return Location object
+	 * @return location
 	 */
 	@ManyToOne
 	public Location getLocation() {
@@ -176,7 +175,7 @@ public class Team {
 	}
 	/**
 	 * Modify month fee of all team members
-	 * @param integer
+	 * @param change
 	 */
 	public void modifyMonthFee(Integer change) {
 		for(MemberTeam mt : memberTeams) {

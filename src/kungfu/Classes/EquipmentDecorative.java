@@ -17,12 +17,12 @@ public class EquipmentDecorative extends Equipment{
 	private long id;
 	private Master owner;
 	public EquipmentDecorative() {}
-	/**
-	 * Constructor
-	 * @param integer
-	 * @param String
-	 * @param Master
-	 */
+/**
+ * Constructor
+ * @param serial
+ * @param name
+ * @param owner
+ */
 	public EquipmentDecorative(Integer serial, String name, Master owner) {
 		super(serial, name);
 		setOwner(owner);
@@ -30,7 +30,7 @@ public class EquipmentDecorative extends Equipment{
 
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -40,13 +40,13 @@ public class EquipmentDecorative extends Equipment{
     }
 	/**
 	 * Sets id
-	 * @param long	 */
+	 * @param id	 */
 	private void setId(long id) {
         this.id = id;
     }
 /**
  * Gets owner
- * @return Master
+ * @return owner
  */
 	@ManyToOne
 	public Master getOwner() {
@@ -54,7 +54,7 @@ public class EquipmentDecorative extends Equipment{
 	}
 	/**
 	 * Sets owner
-	 * @param Master
+	 * @param owner
 	 */
 	public void setOwner(Master master) {
 		this.owner = master;

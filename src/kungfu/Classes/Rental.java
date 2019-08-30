@@ -23,8 +23,8 @@ public class Rental {
 	public Rental() {}
 	/**
 	 * Constructor
-	 * @param Member member
-	 * @param EquipmentSportive eq
+	 * @param member
+	 * @param eq
 	 * @throws Exception
 	 */
 	public Rental(Member member, EquipmentSportive eq) throws Exception {
@@ -37,7 +37,7 @@ public class Rental {
 	}
 /**
  * Gets id
- * @return long
+ * @return id
  */
 	@Id
     @GeneratedValue(generator="increment")
@@ -47,14 +47,14 @@ public class Rental {
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
     }
 	/**
 	 * Gets rent dat
-	 * @return LocalDate
+	 * @return rentDay
 	 */
 	@Basic
 	public LocalDate getRentDay() {
@@ -62,14 +62,14 @@ public class Rental {
 	}
 	/**
 	 * Sets rent day
-	 * @param LocalDate
+	 * @param rentDay
 	 */
 	public void setRentDay(LocalDate rentDay) {
 		this.rentDay = rentDay;
 	}
 	/**
 	 * Gets return day
-	 * @return LocalDate
+	 * @return returnDay
 	 */
 	@Basic
 	public LocalDate getReturnDay() {
@@ -77,14 +77,14 @@ public class Rental {
 	}
 	/**
 	 * Sets return day
-	 * @param LocalDate
+	 * @param returnDay
 	 */
 	public void setReturnDay(LocalDate returnDay) {
 		this.returnDay = returnDay;
 	}
 	/**
 	 * Gets Equipment Sportive
-	 * @return EquipmentSportive
+	 * @return eqSportive
 	 */
 	@ManyToOne
 	public EquipmentSportive getEqSportive() {
@@ -92,14 +92,14 @@ public class Rental {
 	}
 	/**
 	 * Sets Equipment sportive
-	 * @param EquipmentSportive
+	 * @param eqSportive
 	 */
 	public void setEqSportive(EquipmentSportive eqSportive) {
 		this.eqSportive = eqSportive;
 	}
 	/**
 	 * Gets Member
-	 * @return Member
+	 * @return member
 	 */
 	@ManyToOne
 	public Member getMember() {
@@ -107,7 +107,7 @@ public class Rental {
 	}
 	/**
 	 * Sets Member
-	 * @param Member
+	 * @param member
 	 */
 	public void setMember(Member member) {
 		this.member = member;

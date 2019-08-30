@@ -24,8 +24,8 @@ public abstract class Employee {
 	public Employee() {}
 /**
  * Constructor Employee
- * @param Person(required)
- * @param double
+ * @param person
+ * @param salary
  * @throws Exception
  */
 	public Employee(Person person,Double salary) throws Exception {
@@ -39,7 +39,7 @@ public abstract class Employee {
 	/**
 	 * Association
 	 * Gets Person
-	 * @return Person
+	 * @return person
 	 */
 	 @OneToOne
 	   @JoinColumn(name = "fk_person")
@@ -48,7 +48,7 @@ public abstract class Employee {
 	   }
 	 /**
 	  * Sets person
-	  * @param Person
+	  * @param p
 	  * @throws Exception
 	  */
 	   public void setPerson(Person p) throws Exception {
@@ -67,14 +67,14 @@ public abstract class Employee {
 	}
 	/**
 	 * Raise salary
-	 * @param Double
+	 * @param percent
 	 */
 	public void raiseSalary(Double percent) {
 		this.salary = this.salary*percent + this.salary;
 	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -84,14 +84,14 @@ public abstract class Employee {
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
     }
 	/**
 	 * Gets employment date
-	 * @return LocalDate
+	 * @return employmentDate
 	 */
 	@Basic
 	public LocalDate getEmploymentDate() {
@@ -100,14 +100,14 @@ public abstract class Employee {
 /**
  * Sets employment date
  * 
- * @param LocalDate
+ * @param employmentDate
  */
 	public void setEmploymentDate(LocalDate employmentDate) {
 		this.employmentDate = employmentDate;
 	}
 	/**
 	 * Gets release date 
-	 * @return LocalDate
+	 * @return releaseDate
 	 */
 	@Basic
 	public LocalDate getReleaseDate() {
@@ -115,7 +115,7 @@ public abstract class Employee {
 	}
 	/**
 	 * Sets release date
-	 * @param LocalDate
+	 * @param releaseDate
 	 */
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
@@ -130,14 +130,14 @@ public abstract class Employee {
 	}
 	/**
 	 * Sets salary
-	 * @param double
+	 * @param salary
 	 */
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
 	/**
 	 * Gets Tax id number
-	 * @return long
+	 * @return taxIdNumber
 	 */
 	@Basic
 	public Long getTaxIdNumber() {
@@ -145,7 +145,7 @@ public abstract class Employee {
 	}
 /**
  * Sets tax id number
- * @param long
+ * @param taxIdNumber
  */
 	public void setTaxIdNumber(Long taxIdNumber) {
 		TaxIdNumber = taxIdNumber;

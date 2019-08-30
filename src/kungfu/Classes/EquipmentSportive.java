@@ -25,9 +25,9 @@ public class EquipmentSportive extends Equipment{
 	public EquipmentSportive() {}
 /**
  * Constructor
- * @param Integer
- * @param String
- * @param Integer
+ * @param serial
+ * @param name
+ * @param mingrade
  */
 	public EquipmentSportive(Integer serial, String name, Integer mingrade) {
 		super(serial, name);
@@ -35,7 +35,7 @@ public class EquipmentSportive extends Equipment{
 	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -45,14 +45,14 @@ public class EquipmentSportive extends Equipment{
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
     }
 	/**
 	 * Gets min grade
-	 * @return integer
+	 * @return minGrade
 	 */
 	@Basic
 	public Integer getMinGrade() {
@@ -60,7 +60,7 @@ public class EquipmentSportive extends Equipment{
 	}
 	/**
 	 * Sets min grade
-	 * @param integer
+	 * @param minGrade
 	 */
 	public void setMinGrade(Integer minGrade) {
 		this.minGrade = minGrade;
@@ -68,7 +68,7 @@ public class EquipmentSportive extends Equipment{
 	/**
 	 * Association
 	 * Gets Rental list
-	 * @return Rental list
+	 * @return rented
 	 */
 	@OneToMany(mappedBy = "eqSportive", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Rental> getRented() {
@@ -76,14 +76,14 @@ public class EquipmentSportive extends Equipment{
 	}
 /**
  * Sets Rented
- * @param Rental list
+ * @param rented
  */
 	public void setRented(List<Rental> rented) {
 		this.rented = rented;
 	}
 	/**
 	 * Add Rented
-	 * @param Rental
+	 * @param rent
 	 */
 	public void addRented(Rental rent) {
 		if(!this.rented.contains(rent)) {
@@ -93,7 +93,7 @@ public class EquipmentSportive extends Equipment{
 	}
 	/**
 	 * Remove rented
-	 * @param Rental
+	 * @param rent
 	 */
 	public void removeRented(Rental rent) {
 		if(this.rented.contains(rent)) {

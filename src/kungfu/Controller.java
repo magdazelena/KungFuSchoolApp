@@ -48,10 +48,6 @@ public class Controller {
 		public static Session getSession() {
 			return sessionFactory.openSession();
 		}
-//		public void closeSession() {
-//			session.getTransaction().commit();
-//			session.close();
-//		}
 		public static void generateData() throws Exception {
 			//test data
 			String phones = "78787979";

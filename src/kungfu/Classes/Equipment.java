@@ -29,8 +29,8 @@ public abstract class Equipment {
 	public Equipment() {}
 /**
  * Equipment constructor
- * @param int
- * @param String
+ * @param serial
+ * @param name
  */
 	public Equipment(int serial,String name) {
 		setName(name);
@@ -38,7 +38,7 @@ public abstract class Equipment {
 	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -48,14 +48,14 @@ public abstract class Equipment {
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
     }
 	/**
 	 * Gets name
-	 * @return String
+	 * @return name
 	 */
 	@Basic
 	public String getName() {
@@ -63,14 +63,14 @@ public abstract class Equipment {
 	}
 /**
  * Sets name
- * @param String
+ * @param name
  */
 	public void setName(String name) {
 		this.name = name;
 	}
 	/**
 	 * Gets school
-	 * @return School
+	 * @return school
 	 */
 	@ManyToOne
 	@JoinColumn(name="fk_school")
@@ -79,14 +79,14 @@ public abstract class Equipment {
 	}
 /**
  * Sets school
- * @param School
+ * @param school
  */
 	public void setSchool(School school) {
 		this.school = school;
 	}
 	/**
 	 * Gets serial
-	 * @return integer
+	 * @return serialNumber
 	 */
 	@Basic
 	public Integer getSerialNumber() {
@@ -94,7 +94,7 @@ public abstract class Equipment {
 	}
 	/**
 	 * Sets Serial
-	 * @param integer
+	 * @param serialNumber
 	 */
 	
 	public void setSerialNumber(int serialNumber) {

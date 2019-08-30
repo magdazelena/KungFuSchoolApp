@@ -347,6 +347,16 @@ public class GeneralView extends javax.swing.JFrame {
     
     private void CzlonkowieTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CzlonkowieTableMouseClicked
         // TODO add your handling code here:
+    	if( evt.getClickCount() == 2) {
+    		int index = CzlonkowieTable.getSelectedRow();
+    		System.out.println(index);
+            Member m = memberTableModel.getMembers().get(index);
+            System.out.println(m);
+            CheckMember check = new CheckMember(m);
+            check.setVisible(true);
+            check.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          
+    	}
     }//GEN-LAST:event_CzlonkowieTableMouseClicked
 
     private void przeniesCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_przeniesCzlonkaButtonActionPerformed
@@ -370,7 +380,8 @@ public class GeneralView extends javax.swing.JFrame {
     }//GEN-LAST:event_przeniesCzlonkaButtonActionPerformed
 
     private void wypiszCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wypiszCzlonkaButtonActionPerformed
-        // TODO add your handling code here:
+       
+    	
     }//GEN-LAST:event_wypiszCzlonkaButtonActionPerformed
 
     private void wykluczCzlonkaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wykluczCzlonkaButtonActionPerformed

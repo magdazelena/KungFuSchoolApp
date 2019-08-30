@@ -33,12 +33,12 @@ public class Master {
 	private School ledSchool = null;
 	private List<EquipmentDecorative> decors = new ArrayList<>();
 	public Master() {}
-	/**
-	 * Constructor
-	 * @param Member
-	 * @param Master
-	 * @throws Exception
-	 */
+/**
+ * Constructor
+ * @param member
+ * @param master
+ * @throws Exception
+ */
 	public Master(Member member, Master master) throws Exception {
 		if(member == null) throw new Exception ("Member must exist to become master");
 		if(member.checkIfMinor()) throw new Exception("Cannot create master under age 18");
@@ -50,8 +50,8 @@ public class Master {
 		master.addFollower(this);
 	}
 	/**
-	 * Construtor (no master)
-	 * @param Member
+	 * Constructor (no master)
+	 * @param member
 	 * @throws Exception
 	 */
 	public Master(Member member) throws Exception {
@@ -62,7 +62,7 @@ public class Master {
 	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -72,7 +72,7 @@ public class Master {
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
@@ -80,7 +80,7 @@ public class Master {
 	/**
 	 * Assocation 
 	 * Gets Member
-	 * @return Member
+	 * @return member
 	 */
 	 @OneToOne
 	 @JoinColumn(name = "fk_member")
@@ -89,7 +89,7 @@ public class Master {
 	}
 	 /**
 	  * Sets Member
-	  * @param Member
+	  * @param member
 	  * @throws Exception
 	  */
 	public void setMember(Member member) throws Exception {
@@ -99,7 +99,7 @@ public class Master {
 	}
 	/**
 	 * Gets grade
-	 * @return Integer
+	 * @return grade
 	 */
 	@Basic
 	public Integer getGrade() {
@@ -107,7 +107,7 @@ public class Master {
 	}
 /**
  * Sets grade
- * @param Integer
+ * @param grade
  */
 	public void setGrade(Integer grade) {
 		this.grade = grade;
@@ -115,7 +115,7 @@ public class Master {
 	/**
 	 * Association 
 	 * Gets Master
-	 * @return Master
+	 * @return master
 	 */
 	@ManyToOne
 	public Master getMaster() {
@@ -124,7 +124,7 @@ public class Master {
 /**
  * Sets Master
  * 
- * @param Master
+ * @param master
  */
 	public void setMaster(Master master) {
 		if(this.master == null) {
@@ -137,7 +137,7 @@ public class Master {
 	/**
 	 * Association 
 	 * Gets followers
-	 * @return Master list
+	 * @return followers
 	 */
 	@OneToMany(mappedBy = "master", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Master> getFollowers() {
@@ -145,7 +145,7 @@ public class Master {
 	}
 	/**
 	 * Sets followers
-	 * @param Master list
+	 * @param followers
 	 */
 	public void setFollowers(List<Master> followers) {
 		this.followers = followers;
@@ -153,7 +153,7 @@ public class Master {
 	
 	/**
 	 * Add follower
-	 * @param Master
+	 * @param master
 	 */
 	public void addFollower(Master master) {
 		if(!this.followers.contains(master)) {
@@ -163,7 +163,7 @@ public class Master {
 	}
 	/**
 	 * Remove follower
-	 * @param Master
+	 * @param master
 	 */
 	public void removeFollower(Master master) {
 		if(this.followers.contains(master)) {
@@ -175,7 +175,7 @@ public class Master {
 	/**
 	 * Association 
 	 * Gets Led teams
-	 * @return Team list
+	 * @return ledTeams
 	 */
 	@OneToMany(mappedBy = "master", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Team> getLedTeams() {
@@ -183,14 +183,14 @@ public class Master {
 	}
 /**
  * Sets led teams
- * @param Team list
+ * @param ledTeams
  */
 	public void setLedTeams(List<Team> ledTeams) {
 		this.ledTeams = ledTeams;
 	}
 	/**
 	 * Add team
-	 * @param Team
+	 * @param team
 	 */
 	public void addTeam(Team team) {
 		if(!this.getLedTeams().contains(team)) {
@@ -200,7 +200,7 @@ public class Master {
 	}
 /**
  * Remove team
- * @param Team
+ * @param team
  */
 	public void removeTeam(Team team) {
 		if(this.getLedTeams().contains(team)) {
@@ -211,7 +211,7 @@ public class Master {
 	/**
 	 * Association 
 	 * Gets led school
-	 * @return School
+	 * @return ledSchool
 	 */
 	@OneToOne(mappedBy="leader")
 	public School getLedSchool() {
@@ -219,7 +219,7 @@ public class Master {
 	}
 /**
  * Sets led school
- * @param School
+ * @param ledSchool
  */
 	public void setLedSchool(School ledSchool) {
 		if(this.ledSchool == null) {
@@ -232,7 +232,7 @@ public class Master {
 	/**
 	 * Association
 	 * Gets owned decors
-	 * @return EquipmentDecorative list
+	 * @return decors
 	 */
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<EquipmentDecorative> getDecors() {
@@ -240,14 +240,14 @@ public class Master {
 	}
 /**
  * Sets decors
- * @param EquipmentDecorative list
+ * @param decors
  */
 	public void setDecors(List<EquipmentDecorative> decors) {
 		this.decors = decors;
 	}
 	/**
 	 * Add decor
-	 * @param EquipmentDecorative
+	 * @param decor
 	 */
 	public void addDecor(EquipmentDecorative decor) {
 		if(!getDecors().contains(decor)) {

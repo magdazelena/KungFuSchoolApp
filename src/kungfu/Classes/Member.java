@@ -31,13 +31,13 @@ public class Member {
 	    private List<MemberTeam> memberTeams = new ArrayList<>();
 	    
 	    public Member() {}
-	    /**
-	     * Constructor
-	     * @param Person 
-	     * @param LocalDate birthday
-	     * @param Integer fee
-	     * @throws Exception
-	     */
+	  /**
+	   * Constructor
+	   * @param p
+	   * @param birthDate
+	   * @param monthFee
+	   * @throws Exception
+	   */
 	    public Member(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
 	    	if(p == null) throw new Exception("Person must exist to become a member");
 	    	if(p.getMember() != null) throw new Exception("The person is already a member");
@@ -50,7 +50,7 @@ public class Member {
 	    }
 	    /**
 	     * Gets id
-	     * @return long
+	     * @return id
 	     */
 	    @Id
 	    @GeneratedValue(generator="increment")
@@ -60,7 +60,7 @@ public class Member {
 	    }
 /**
  * Sets id
- * @param long
+ * @param id
  */
 	    private void setId(long id) {
 	        this.id = id;
@@ -68,7 +68,7 @@ public class Member {
 	    /**
 	     * Association
 	     * Gets Person
-	     * @return Person
+	     * @return person
 	     */
 	    //asocjacja
 	   @OneToOne
@@ -78,7 +78,7 @@ public class Member {
 	   }
 	   /**
 	    * Sets Person
-	    * @param Person
+	    * @param p
 	    * @throws Exception
 	    */
 	   public void setPerson(Person p) throws Exception {
@@ -89,7 +89,7 @@ public class Member {
 	    /**
 	     * Association
 	     * Gets MemberTeams
-	     * @return MemberTeam list
+	     * @return memberTeams
 	     */
 	   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 	   public List<MemberTeam> getMemberTeams(){
@@ -97,7 +97,7 @@ public class Member {
 	   }
 	   /**
 	    * Adds member team
-	    * @param MemberTeam
+	    * @param pg
 	    */
 	   public void addMemberTeam(MemberTeam pg) {
 		   if(this.status == Status.New)
@@ -109,7 +109,7 @@ public class Member {
 	   }
 	   /**
 	    * Removes MemberTeam
-	    * @param MemberTeam
+	    * @param pg
 	    */
 	   public void removeMemberTeam(MemberTeam pg) {
 		   if(this.getMemberTeams().contains(pg)) {
@@ -119,7 +119,7 @@ public class Member {
 	   }
 	   /**
 	    * Sets MemberTeam
-	    * @param MemberTeam list
+	    * @param pg
 	    */
 	   public void setMemberTeams(List<MemberTeam> pg) {
 		   this.memberTeams = pg;
@@ -128,7 +128,7 @@ public class Member {
 	   
 	 /**
 	  * Gets Status
-	  * @return Enum 
+	  * @return status 
 	  */
 	@Enumerated 
 	public Status getStatus() {
@@ -136,14 +136,14 @@ public class Member {
 	}
 	/**
 	 * Sets status
-	 * @param Enum Status
+	 * @param status
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
 	}
 	/**
 	 * Gets Join date
-	 * @return LocalDate
+	 * @return joinDate
 	 */
 	@Basic
 	public LocalDate getJoinDate() {
@@ -151,14 +151,14 @@ public class Member {
 	}
 	/**
 	 * SetsJoinDate
-	 * @param LocalDate
+	 * @param date
 	 */
 	public void setJoinDate(LocalDate date) {
 		this.joinDate = date;
 	}
 	/**
 	 * Gets birth date
-	 * @return LocalDate
+	 * @return birthDate
 	 */
 	@Basic
 	public LocalDate getBirthDate() {
@@ -166,14 +166,14 @@ public class Member {
 	}
 	/**
 	 * Sets birthdate
-	 * @param LocalDate
+	 * @param date
 	 */
 	public void setBirthDate(LocalDate date) {
 		this.birthDate = date;
 	}
 	/**
 	 * Gets year fee
-	 * @return Integer
+	 * @return yearFee
 	 */
 	@Basic
 	public Integer getYearFee() {
@@ -181,14 +181,14 @@ public class Member {
 	}
 	/**
 	 * Sets year Fee
-	 * @param Integer
+	 * @param yearFee
 	 */
 	public void setYearFee(Integer yearFee) {
 		this.yearFee = yearFee;
 	}
 	/**
 	 * Gets Month Fee
-	 * @return Integer
+	 * @return monthFee
 	 */
 	@Basic 
 	public Integer getMonthFee() {
@@ -196,14 +196,14 @@ public class Member {
 	}
 	/**
 	 * Sets month fee
-	 * @param Integer
+	 * @param monthFee
 	 */
 	public void setMonthFee(Integer money) {
 		this.monthFee = money;
 	}
 	/**
 	 * Gets Former Club
-	 * @return String
+	 * @return formerClub
 	 */
     @Basic
     public String getFormerClub() {
@@ -211,7 +211,7 @@ public class Member {
     }
     /**
      * Sets Former Club
-     * @param String
+     * @param fc
      */
     public void setFormerClub(String fc) {
     	this.formerClub = fc;
@@ -242,7 +242,7 @@ public class Member {
 	/**
 	 * Association
 	 *Gets student
-	 * @return Student
+	 * @return student
 	 */
 	@OneToOne(mappedBy = "member", orphanRemoval = true)
 	public Student getStudent() {
@@ -250,7 +250,7 @@ public class Member {
 	}
 	/**Sets student
 	 * 
-	 * @param Student
+	 * @param student
 	 */
 	public void setStudent(Student student) {
 		if(this.master == null && this.student==null) {
@@ -260,7 +260,7 @@ public class Member {
 	}
 	/**
 	 * Gets master
-	 * @return Master
+	 * @return master
 	 */
 	@OneToOne(mappedBy = "member", orphanRemoval = true)
 	public Master getMaster() {
@@ -268,7 +268,7 @@ public class Member {
 	}
 	/**
 	 * Sets Master
-	 * @param Master
+	 * @param master
 	 */
 	public void setMaster(Master master) {
 		if(this.master == null && this.student==null) {
@@ -278,8 +278,8 @@ public class Member {
 	}
 	/**
 	 * Upgrade to Master
-	 * @param Master
-	 * @return Master
+	 * @param master
+	 * @return m
 	 * @throws Exception 
 	 */
 	public Master upgradeToMaster(Master master) throws Exception {

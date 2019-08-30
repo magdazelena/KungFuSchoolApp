@@ -19,8 +19,8 @@ public class Accountant extends Employee{
 	public Accountant() {}
 	/**
 	 * Accountant constructor
-	 * @param person (super)
-	 * @param salary (super)
+	 * @param person
+	 * @param salary
 	 * @param cert
 	 * @throws Exception of superclass
 	 */
@@ -31,7 +31,7 @@ public class Accountant extends Employee{
 	//connections 
 	/**
 	 * Gets list of schools 
-	 * @return school list
+	 * @return schools
 	 */
 	@OneToMany(mappedBy = "accountant", cascade = CascadeType.ALL, orphanRemoval = true)
 	   private List<School> getSchools(){
@@ -55,7 +55,7 @@ public class Accountant extends Employee{
 	   }
 	   /**
 	    * Sets school list
-	    * @param school list
+	    * @param schools
 	    */
 	   public void setSchools(List<School> school) {
 		   this.schools = school;
@@ -63,7 +63,7 @@ public class Accountant extends Employee{
 	
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -73,14 +73,14 @@ public class Accountant extends Employee{
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	private void setId(long id) {
         this.id = id;
     }
 	/**
 	 * Gets certificate number
-	 * @return integer
+	 * @return certificateNumber
 	 */
 	@Basic
 	public Integer getCertificateNumber() {
@@ -88,7 +88,7 @@ public class Accountant extends Employee{
 	}
 	/**
 	 * Sets certificate person
-	 * @param integer
+	 * @param nr
 	 */
 	public void setCertificateNumber(Integer nr) {
 		this.certificateNumber = nr;
@@ -96,7 +96,7 @@ public class Accountant extends Employee{
 	/**
 	 * Do finance report for the school
 	 * @param school
-	 * @return string (confirm)
+	 * @return string
 	 */
 	public String doFinanceReport(School school) {
 		long money = school.getStudentCount() * Member.yearFee;
@@ -104,7 +104,7 @@ public class Accountant extends Employee{
 	}
 	/**
 	 * Raise salary of the employee by given percent
-	 * @param double
+	 * @param percent
 	 */
 	public void raiseSalary(Double percent) {
 		super.setSalary(super.getSalary()+super.getSalary()*percent);
