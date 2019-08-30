@@ -7,6 +7,7 @@ package kungfu.Views;
 
 import java.awt.List;
 import java.awt.event.ActionEvent;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
@@ -160,16 +161,30 @@ public class ChangeGroup extends javax.swing.JFrame {
 				return;
 			}
 			java.util.List<MemberTeam> teams = member.getMemberTeams();
+			boolean memberWas = false;
+			MemberTeam mteam =  null;
 			for(MemberTeam mt : teams) {
-				if(mt.getTeam().getTeamNr() == team.getTeamNr() && mt.getLeaveDate() == null) {
-					JOptionPane.showMessageDialog(null, "Członek już należy do tej grupy");
-					return;
+				if(mt.getTeam().getTeamNr() == team.getTeamNr() ) {
+					if(mt.getLeaveDate() == null) {
+						JOptionPane.showMessageDialog(null, "Członek już należy do tej grupy");
+						return;
+					}else {
+						memberWas = true;
+						mteam = mt;
+						mteam.setLeaveDate(null);
+					}
+					
 				}
 			}
-			MemberTeam mt = new MemberTeam(member, team);
+			
+			if(!memberWas) {
+				mteam = new MemberTeam(member, team);
+				mteam.setJoinDate(LocalDate.now());
+			}
 			Session s = Controller.getSession();
 			s.beginTransaction();
-			s.save(mt);
+			//s.saveOrUpdate(mteam);
+			s.save(mteam);
 			s.update(team);
 			s.update(member);
 			s.getTransaction().commit();

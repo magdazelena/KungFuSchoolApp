@@ -124,7 +124,7 @@ public class RemoveTeam extends javax.swing.JFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) 	{//GEN-FIRST:event_anulujButtonActionPerformed
     	try {
-			MemberTeam team = member.getMemberTeams().get(jComboBox1.getSelectedIndex());
+			MemberTeam team = getMemberTeams(member).get(jComboBox1.getSelectedIndex());
 			team.setLeaveDate(LocalDate.now());
 			Session s = Controller.getSession();
 			s.beginTransaction();
@@ -145,17 +145,18 @@ public class RemoveTeam extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 	
 	
-	public List<Team> getMemberTeams(Member m){
-		List<Team> list = new ArrayList<>();
+	public List<MemberTeam> getMemberTeams(Member m){
+		List<MemberTeam> list = new ArrayList<>();
 		for(MemberTeam t: m.getMemberTeams()) {
-			list.add(t.getTeam());
+			if(t.getLeaveDate()==null)
+				list.add(t);
 		}
 		return list;
 	}
-	public String[] teamNames(List<Team> l){
+	public String[] teamNames(List<MemberTeam> l){
 		String[] s = new String[l.size()];
 		for(int i =0; i< l.size();i++) {
-			s[i] = l.get(i).getTeamNr()+" mistrz: "+l.get(i).getMaster().getMember().getPerson().getFullName();
+			s[i] = l.get(i).getTeam().getTeamNr()+" mistrz: "+l.get(i).getTeam().getMaster().getMember().getPerson().getFullName();
 		}
 		return s;
 	}
