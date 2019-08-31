@@ -70,7 +70,7 @@ public class Team {
 	    * @return memberTeams
 	    */
 	   @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-	   private List<MemberTeam> getMemberTeams(){
+	   public List<MemberTeam> getMemberTeams(){
 		   return this.memberTeams;
 	   }
 	   /**

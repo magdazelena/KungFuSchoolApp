@@ -59,7 +59,7 @@ public class Location {
 	 */
 	public static Location createLocation(School school, String street, Integer number, Integer zipcode, String city, Boolean isHq) throws Exception {
 		if(school == null) throw new Exception("School must exist");
-		Location location = new Location(school, street, number, number, city, isHq);
+		Location location = new Location(school, street, number, zipcode, city, isHq);
 		school.addLocation(location);
 		return location;
 	}
@@ -205,5 +205,8 @@ public class Location {
 		if(this.teams.contains(team)) {
 			this.teams.remove(team);
 		}
+	}
+	public String toString(){
+		return "ul. "+this.getStreet()+" "+this.getNumber()+", "+this.getZipcode()+" "+this.getCity();
 	}
 }

@@ -8,7 +8,12 @@ package kungfu.Views;
 import java.time.LocalDate;
 import java.time.Period;
 
+import javax.swing.table.DefaultTableModel;
+
+import kungfu.Classes.EquipmentDecorative;
 import kungfu.Classes.Member;
+import kungfu.Classes.Team;
+
 import java.awt.Color;
 /**
  *
@@ -74,7 +79,15 @@ public class CheckMember extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         sprzety = new javax.swing.JTable();
-
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        sprzetyDeco = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        grupyProwadzone = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -343,6 +356,76 @@ public class CheckMember extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Sprzęty sportowe", jPanel3);
+        //**
+        if(member.getMaster()!= null) {
+        	String[][] data = new String[member.getMaster().getDecors().size()][3];
+        	int i =0;
+        	for(EquipmentDecorative eq: member.getMaster().getDecors()) {
+        		data[i][0]=eq.getName();
+        		data[i][1]=eq.getSerialNumber().toString();
+        		data[i][2]=eq.getSchool().toString();
+        		i++;	
+        	}
+        	String[] columnNames = {"Nazwa sprzętu", "Nr seryjny", "Szkoła"};
+        	sprzetyDeco.setModel(new DefaultTableModel(data, columnNames));
+        	javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+            jPanel4.setLayout(jPanel4Layout);
+            jPanel4Layout.setHorizontalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
+            );
+            jPanel4Layout.setVerticalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane4)
+            );
+            jScrollPane4.setViewportView(sprzetyDeco);
+        	jTabbedPane1.addTab("Sprzęty dekoracyjne", jPanel4);
+        }
+        /**/
+        //**
+        if(member.getMaster()!= null) {
+        	String[][] data = new String[member.getMaster().getLedTeams().size()][5];
+        	int i =0;
+        	for(Team t: member.getMaster().getLedTeams()) {
+        		data[i][0]=t.getTeamNr().toString();
+        		data[i][1]=t.getDays().toString();
+        		data[i][2]=t.getHours().toString();
+        		data[i][3]=t.getLocation().toString();
+        		data[i][4]=t.getMemberTeams().size()+"";
+        		i++;	
+        	}
+        	String[] columnNames = {"Numer grupy", "Dni zajęć", "Godziny zajęć", "Placówka", "Liczba uczniów"};
+        	grupyProwadzone.setModel(new DefaultTableModel(data, columnNames));
+        	javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+            jPanel5.setLayout(jPanel5Layout);
+            jPanel5Layout.setHorizontalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
+            );
+            jPanel5Layout.setVerticalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane5)
+            );
+            jScrollPane5.setViewportView(grupyProwadzone);
+        	jTabbedPane1.addTab("Prowadzone grupy", jPanel5);
+        }
+        /**/
+      //**
+        if(member.checkIfMinor()) {
+        	
+        	javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+            jPanel6.setLayout(jPanel6Layout);
+            jPanel6Layout.setHorizontalGroup(
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
+            );
+            jPanel6Layout.setVerticalGroup(
+                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane6)
+            );
+        	jTabbedPane1.addTab("Dane opiekuna prawnego", jPanel6);
+        }
+        /**/
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -437,14 +520,22 @@ public class CheckMember extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable sprzety;
+    private javax.swing.JTable sprzetyDeco;
     private javax.swing.JTable grupy;
+    private javax.swing.JTable grupyProwadzone;
     private static Member member;
     // End of variables declaration//GEN-END:variables
 	public void setMember(Member m) {
