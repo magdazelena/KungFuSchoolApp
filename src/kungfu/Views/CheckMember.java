@@ -327,18 +327,8 @@ public class CheckMember extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Grupy", jPanel2);
-
-        sprzety.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        RentalMemberTable rentalTableModel = new RentalMemberTable(member);
+        sprzety.setModel(rentalTableModel);
         jScrollPane1.setViewportView(sprzety);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -352,7 +342,7 @@ public class CheckMember extends javax.swing.JFrame {
             .addComponent(jScrollPane1)
         );
 
-        jTabbedPane1.addTab("Sprzęt", jPanel3);
+        jTabbedPane1.addTab("Sprzęty sportowe", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

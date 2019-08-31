@@ -1,5 +1,6 @@
 package kungfu.Classes;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Basic;
@@ -16,8 +17,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity(name="Rental")
 public class Rental {
 	private long id;
-	private LocalDate rentDay;
-	private LocalDate returnDay = null;
+	private Date rentDay;
+	private Date returnDay = null;
 	private EquipmentSportive eqSportive= null;
 	private Member member = null;
 	public Rental() {}
@@ -33,7 +34,9 @@ public class Rental {
 				throw new Exception("Member grade is too low to rent this equipment");
 		setMember(member);
 		setEqSportive(eq);
-		this.rentDay = LocalDate.now();
+		member.addRental(this);
+		eq.addRented(this);
+		this.rentDay = Date.valueOf(LocalDate.now());
 	}
 /**
  * Gets id
@@ -57,14 +60,14 @@ public class Rental {
 	 * @return rentDay
 	 */
 	@Basic
-	public LocalDate getRentDay() {
+	public Date getRentDay() {
 		return rentDay;
 	}
 	/**
 	 * Sets rent day
 	 * @param rentDay
 	 */
-	public void setRentDay(LocalDate rentDay) {
+	public void setRentDay(Date rentDay) {
 		this.rentDay = rentDay;
 	}
 	/**
@@ -72,14 +75,14 @@ public class Rental {
 	 * @return returnDay
 	 */
 	@Basic
-	public LocalDate getReturnDay() {
+	public Date getReturnDay() {
 		return returnDay;
 	}
 	/**
 	 * Sets return day
 	 * @param returnDay
 	 */
-	public void setReturnDay(LocalDate returnDay) {
+	public void setReturnDay(Date returnDay) {
 		this.returnDay = returnDay;
 	}
 	/**

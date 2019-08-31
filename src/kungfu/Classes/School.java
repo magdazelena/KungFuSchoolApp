@@ -156,4 +156,7 @@ public class School {
 			eq.setSchool(null);
 		}
 	}
+	public String toString() {
+		return "Szkoła na "+this.gethQ().getStreet()+", "+this.gethQ().getCity();
+	}
 }

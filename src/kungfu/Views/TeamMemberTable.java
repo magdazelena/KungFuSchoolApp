@@ -11,16 +11,8 @@ public class TeamMemberTable extends AbstractTableModel{
 
 	private List<MemberTeam> memteams = new ArrayList<>();
 	public TeamMemberTable(Member m) {
-		//this.updateData();
 		this.memteams = m.getMemberTeams();
 	}
-//	@SuppressWarnings("unchecked")
-//	public void updateData() {
-//		Session s = Controller.getSession();
-//			this.memteams = s.createQuery( "from MemberTeam" ).list();
-//		s.close();
-//		this.fireTableDataChanged();
-//	}
 	@Override
 	public int getColumnCount() {
 		return 4;

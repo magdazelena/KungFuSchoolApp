@@ -25,7 +25,7 @@ public class MemberTable extends AbstractTableModel{
 	}
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return 5;
 	}
 
 	@Override
@@ -38,6 +38,7 @@ public class MemberTable extends AbstractTableModel{
 		if(colNr ==1) return "Opiekun prawny";
 		if(colNr ==2 ) return "Numer grupy";
 		if(colNr ==3) return "Status";
+		if(colNr== 4) return "Stopień";
 		return "";
 	}
 
@@ -60,7 +61,7 @@ public class MemberTable extends AbstractTableModel{
 			}
 		}
 		if(colNr ==3 ) return member.getStatus();
-		
+		if(colNr ==4 ) return member.getStudent() == null? member.getMaster().getGrade(): member.getStudent().getGrade();
 		return null;
 	}
 	public List<Member> getMembers(){

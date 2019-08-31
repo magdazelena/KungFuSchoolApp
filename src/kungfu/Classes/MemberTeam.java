@@ -3,6 +3,7 @@ package kungfu.Classes;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 import org.hibernate.annotations.GenericGenerator;
 /**
@@ -11,12 +12,13 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity(name="MemberTeam")
 public class MemberTeam {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private Team team;
 	private Member member;
-	private LocalDate joinDate;
-	private LocalDate leaveDate = null;
+	private Date joinDate;
+	private Date leaveDate = null;
 	public MemberTeam() {}
 	/**
 	 * MemberTeam
@@ -26,7 +28,7 @@ public class MemberTeam {
 	public MemberTeam(Member p, Team g) {
 		this.member = p;
 		this.team = g;
-		this.joinDate = LocalDate.now();
+		this.joinDate = Date.valueOf(LocalDate.now());
 		this.member.addMemberTeam(this);
 		this.team.addMemberTeam(this);
 	}
@@ -34,7 +36,7 @@ public class MemberTeam {
  * Gets id
  * @return long
  */
-	 @Id
+	 	@Id
 	    @GeneratedValue(generator="increment")
 	    @GenericGenerator(name="increment", strategy = "increment")
 	    public long getId() {
@@ -85,14 +87,14 @@ public class MemberTeam {
 	 * @return LocalDate
 	 */
 	@Basic 
-	public LocalDate getJoinDate() {
+	public Date getJoinDate() {
 		return this.joinDate;
 	}
 	/**
 	 * Sets joinDate
 	 * @param LocalDate
 	 */
-	public void setJoinDate(LocalDate date) {
+	public void setJoinDate(Date date) {
 		this.joinDate = date;
 	}
 	/**
@@ -107,14 +109,10 @@ public class MemberTeam {
 	 * @return LocalDate
 	 */
 	@Basic
-	public LocalDate getLeaveDate() {
+	public Date getLeaveDate() {
 		return leaveDate;
 	}
-	/**
-	 * Sets Leave Date
-	 * @param LocalDate
-	 */
-	public void setLeaveDate(LocalDate leaveDate) {
+	public void setLeaveDate(Date leaveDate) {
 		this.leaveDate = leaveDate;
 	}
 	

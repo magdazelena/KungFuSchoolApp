@@ -5,6 +5,7 @@
  */
 package kungfu.Views;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,7 +126,7 @@ public class RemoveTeam extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) 	{//GEN-FIRST:event_anulujButtonActionPerformed
     	try {
 			MemberTeam team = getMemberTeams(member).get(jComboBox1.getSelectedIndex());
-			team.setLeaveDate(LocalDate.now());
+			team.setLeaveDate(Date.valueOf(LocalDate.now()));
 			Session s = Controller.getSession();
 			s.beginTransaction();
 			s.update(team);

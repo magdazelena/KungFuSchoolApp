@@ -5,6 +5,9 @@
  */
 package kungfu.Views;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.HierarchyEvent;
@@ -12,6 +15,8 @@ import java.awt.event.HierarchyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import kungfu.Classes.Member;
 
@@ -213,7 +218,25 @@ public class GeneralView extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(CzlonkowieTable);
         CzlonkowieTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        CzlonkowieTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+            @Override
+            public Component getTableCellRendererComponent(JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row, int col) {
 
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+
+                Integer status = (Integer)table.getModel().getValueAt(row,4);
+                if (status >= 13) {
+                    setBackground(Color.orange);
+                    setForeground(Color.DARK_GRAY);
+                    setFont(table.getFont().deriveFont(Font.BOLD, 14f));
+                } else {
+                    setBackground(table.getBackground());
+                    setForeground(table.getForeground());
+                }       
+                return this;
+            }   
+        });
         poleWyszukaniaCzlonka2.setToolTipText("Wpisz imie lub nazwisko by wyszukać");
 
         szukajCzlonkaButton.setText("Szukaj");

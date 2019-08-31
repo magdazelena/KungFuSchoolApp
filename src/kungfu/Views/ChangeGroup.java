@@ -7,6 +7,7 @@ package kungfu.Views;
 
 import java.awt.List;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
@@ -172,18 +173,18 @@ public class ChangeGroup extends javax.swing.JFrame {
 						memberWas = true;
 						mteam = mt;
 						mteam.setLeaveDate(null);
+						
 					}
 					
 				}
 			}
-			
 			if(!memberWas) {
 				mteam = new MemberTeam(member, team);
-				mteam.setJoinDate(LocalDate.now());
+				mteam.setJoinDate(Date.valueOf(LocalDate.now()));
 			}
+				
 			Session s = Controller.getSession();
 			s.beginTransaction();
-			//s.saveOrUpdate(mteam);
 			s.save(mteam);
 			s.update(team);
 			s.update(member);
@@ -191,6 +192,7 @@ public class ChangeGroup extends javax.swing.JFrame {
 			s.close();
 			this.dispose();
 		}catch(Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Wybierz grupę z listy");
 		}
 	}

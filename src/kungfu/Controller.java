@@ -1,5 +1,6 @@
 package kungfu;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,7 @@ public class Controller {
 			MemberTeam mt1 = new MemberTeam(m2, team1);
 			MemberTeam mt2 = new MemberTeam(m3, team2);
 			MemberTeam mt3 = new MemberTeam(m4, team3);
-			mt3.setLeaveDate(LocalDate.of(2019, 7, 1));
+			mt3.setLeaveDate(Date.valueOf(LocalDate.of(2019, 7, 1)));
 			//Employee - Accountant
 			Accountant acc = new Accountant(person4, 4000.00, 12345);
 			
@@ -132,7 +133,7 @@ public class Controller {
 			//Rental rentManekin = new Rental(m1, manekin);
 			Rental rentManekin = new Rental(m2, manekin);
 			Rental rentMakiwara = new Rental(m1, makiwara);
-			rentMakiwara.setReturnDay(LocalDate.of(2020, 1, 1));
+			rentMakiwara.setReturnDay(Date.valueOf(LocalDate.of(2020, 1, 1)));
 			m1.setStatus(Status.Suspended);
 			//test data end
 			Session session = sessionFactory.openSession();
@@ -162,7 +163,9 @@ public class Controller {
 			session.save(rentMakiwara); session.save(rentManekin);
 			//test data
 			session.getTransaction().commit();
+			session.flush();
 			session.close();
+			session.getSessionFactory().close();
 		}
 		public static void printExampleData() {
 			System.out.println("\nZ bazy danych");

@@ -29,7 +29,7 @@ public class Member {
 	    private String formerClub = null;
 	    
 	    private List<MemberTeam> memberTeams = new ArrayList<>();
-	    
+	    private List<Rental> memberRentals = new ArrayList<>();
 	    public Member() {}
 	  /**
 	   * Constructor
@@ -295,4 +295,37 @@ public class Member {
 		}
 		return null;
 	}
+	/**
+	 * @return the memberRentals
+	 */
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+	public List<Rental> getMemberRentals() {
+		return memberRentals;
+	}
+	/**
+	 * @param memberRentals the memberRentals to set
+	 */
+	public void setMemberRentals(List<Rental> memberRentals) {
+		this.memberRentals = memberRentals;
+	}
+	/**
+	    * 
+	    * @param pg
+	    */
+	   public void addRental(Rental pg) {
+		   if(!this.getMemberRentals().contains(pg)) {
+			   getMemberRentals().add(pg);
+			   pg.setMember(this);
+		   }
+	   }
+	   /**
+	    * Removes MemberTeam
+	    * @param pg
+	    */
+	   public void removeRental(Rental pg) {
+		   if(this.getMemberRentals().contains(pg)) {
+			   getMemberRentals().remove(pg);
+			   pg.setMember(null);
+		   }
+	   }
 }
