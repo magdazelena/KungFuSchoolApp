@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import org.hibernate.Session;
 
@@ -61,7 +63,7 @@ public class AddMember extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         studentRadio = new javax.swing.JRadioButton();
         mistrzRadio = new javax.swing.JRadioButton();
-        stopien = new javax.swing.JSpinner();
+        
         jLabel7 = new javax.swing.JLabel();
         podajTelefon = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -135,7 +137,28 @@ public class AddMember extends javax.swing.JFrame {
         mistrzRadio.setText("Mistrz");
 
         jLabel7.setText("Stopień (opcjonalnie)");
-
+        
+        if(studentRadio.isSelected()) {
+        	SpinnerModel sm = new SpinnerNumberModel(0, 0, 12, 1);
+        	stopien = new javax.swing.JSpinner(sm);
+        }else {
+        	SpinnerModel sm = new SpinnerNumberModel(13, 13, 50, 1);
+        	stopien = new javax.swing.JSpinner(sm);
+        }
+        studentRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mistrzRadio.setSelected(false);
+                SpinnerModel sm = new SpinnerNumberModel(0, 0, 12, 1);
+            	stopien.setModel(sm);
+            }
+        });
+        mistrzRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	studentRadio.setSelected(false);
+            	SpinnerModel sm = new SpinnerNumberModel(13, 13, 50, 1);
+            	stopien.setModel(sm);
+            }
+        });
         podajTelefon.setToolTipText("podaj numer telefonu");
 
         jLabel8.setText("Numer telefonu");
@@ -281,6 +304,7 @@ public class AddMember extends javax.swing.JFrame {
                 	  });
     			}else {
     				Student st = new Student(m);
+    				if(stopien.getValue() != null) st.setGrade((Integer)stopien.getValue());
     				s.save(st);
     				s.save(p);
     	        	s.save(m);
@@ -294,6 +318,7 @@ public class AddMember extends javax.swing.JFrame {
         			JOptionPane.showMessageDialog(null, "Mistrz nie może być niepełnoletni");
         		}else {
         			Master mst = new Master(m);
+        			if(stopien.getValue() != null) mst.setGrade((Integer)stopien.getValue());
         			s.save(mst);
         			s.save(p);
                 	s.save(m);
