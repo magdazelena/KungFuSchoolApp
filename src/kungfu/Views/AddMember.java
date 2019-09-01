@@ -33,6 +33,10 @@ import kungfu.Classes.Student;
 public class AddMember extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -549138041904979525L;
+	/**
      * Creates new form AddMember
      */
     public AddMember() {
@@ -280,7 +284,7 @@ public class AddMember extends javax.swing.JFrame {
         	Person p = new Person(wpiszImieField.getText(), wpiszNazwiskoField.getText(), podajTelefon.getText());
         	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         	LocalDate date = LocalDate.parse(wpiszDataUrField.getText(), formatter);
-        	Member m = new Member(p, date, Integer.parseInt(wpiszSkladkaField.getText()));
+        	Member m = Member.createMember(p, date, Integer.parseInt(wpiszSkladkaField.getText()));
         	if(wpiszPoprzedniKlubField.getText().length() >0) {
         		m.setFormerClub(wpiszPoprzedniKlubField.getText());
         	}
@@ -303,7 +307,7 @@ public class AddMember extends javax.swing.JFrame {
         				}
                 	  });
     			}else {
-    				Student st = new Student(m);
+    				Student st = Student.createStudent(m);
     				if(stopien.getValue() != null) st.setGrade((Integer)stopien.getValue());
     				s.save(st);
     				s.save(p);
@@ -317,7 +321,7 @@ public class AddMember extends javax.swing.JFrame {
         		if(m.checkIfMinor()) {
         			JOptionPane.showMessageDialog(null, "Mistrz nie może być niepełnoletni");
         		}else {
-        			Master mst = new Master(m);
+        			Master mst = Master.createMaster(m);
         			if(stopien.getValue() != null) mst.setGrade((Integer)stopien.getValue());
         			s.save(mst);
         			s.save(p);

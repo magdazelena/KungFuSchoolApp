@@ -32,14 +32,14 @@ public class Master {
 	private List<Team> ledTeams = new ArrayList<>();
 	private School ledSchool = null;
 	private List<EquipmentDecorative> decors = new ArrayList<>();
-	public Master() {}
+	private Master() {}
 /**
  * Constructor
  * @param member
  * @param master
  * @throws Exception
  */
-	public Master(Member member, Master master) throws Exception {
+	private Master(Member member, Master master) throws Exception {
 		if(member == null) throw new Exception ("Member must exist to become master");
 		if(member.checkIfMinor()) throw new Exception("Cannot create master under age 18");
 		if(member.getStudent()!= null) throw new Exception("This member is a master ");
@@ -54,11 +54,24 @@ public class Master {
 	 * @param member
 	 * @throws Exception
 	 */
-	public Master(Member member) throws Exception {
+	private Master(Member member) throws Exception {
 		if(member == null) throw new Exception ("Member must exist to become master");
 		if(member.checkIfMinor()) throw new Exception("Cannot create master under age 18");
+		if(member.getStudent()!= null) throw new Exception("This member is a master ");
 		setMember(member);
 		member.setMaster(this);
+	}
+	public static Master createMaster(Member member) throws Exception {
+		if(member == null) throw new Exception("Mistrz musi być członkiem");
+		Master m = new Master(member);
+		member.setMaster(m);
+		return m;
+	}
+	public static Master createMaster(Member member, Master master) throws Exception {
+		if(member == null) throw new Exception("Mistrz musi być członkiem");
+		Master m = new Master(member, master);
+		member.setMaster(m);
+		return m;
 	}
 	/**
 	 * Gets id
@@ -74,6 +87,7 @@ public class Master {
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }

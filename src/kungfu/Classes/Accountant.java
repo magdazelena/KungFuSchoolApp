@@ -16,7 +16,7 @@ public class Accountant extends Employee{
 	private long id;
 	private Integer certificateNumber;
 	private List<School> schools = new ArrayList<>();
-	public Accountant() {}
+	private Accountant() {}
 	/**
 	 * Accountant constructor
 	 * @param person
@@ -24,9 +24,15 @@ public class Accountant extends Employee{
 	 * @param cert
 	 * @throws Exception of superclass
 	 */
-	public Accountant(Person person, Double salary, Integer cert) throws Exception {
+	private Accountant(Person person, Double salary, Integer cert) throws Exception {
 		super(person, salary);
 		this.certificateNumber = cert;
+	}
+	public static Accountant createAccountant(Person person, Double salary, Integer cert) throws Exception {
+		if(person == null) throw new Exception("Osoba nie istnieje");
+		Accountant acc = new Accountant(person, salary, cert);
+		person.setEmployee(acc);
+		return acc;
 	}
 	//connections 
 	/**
@@ -75,6 +81,7 @@ public class Accountant extends Employee{
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }

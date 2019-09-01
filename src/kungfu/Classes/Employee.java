@@ -1,5 +1,6 @@
 package kungfu.Classes;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -15,8 +16,8 @@ import org.hibernate.annotations.GenericGenerator;
 @DiscriminatorValue(value="employee")  
 public abstract class Employee {
 	private long id;
-	private LocalDate employmentDate;
-	private LocalDate releaseDate = null;
+	private Date employmentDate;
+	private Date releaseDate = null;
 	private Double salary;
 	private Long TaxIdNumber = null;
 	private Person person;
@@ -32,7 +33,7 @@ public abstract class Employee {
 		if(person == null) throw new Exception("Person must exist to become Employee");
 		setPerson(person);
 		this.salary = salary;
-		this.employmentDate = LocalDate.now();
+		this.employmentDate = Date.valueOf(LocalDate.now());
 	}
 	
 	//connections:
@@ -63,7 +64,7 @@ public abstract class Employee {
 	    *
 	    */
 	public void releaseEmployee() {
-		setReleaseDate(LocalDate.now());
+		setReleaseDate(Date.valueOf(LocalDate.now()));
 	}
 	/**
 	 * Raise salary
@@ -86,6 +87,7 @@ public abstract class Employee {
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
@@ -94,7 +96,7 @@ public abstract class Employee {
 	 * @return employmentDate
 	 */
 	@Basic
-	public LocalDate getEmploymentDate() {
+	public Date getEmploymentDate() {
 		return employmentDate;
 	}
 /**
@@ -102,7 +104,7 @@ public abstract class Employee {
  * 
  * @param employmentDate
  */
-	public void setEmploymentDate(LocalDate employmentDate) {
+	public void setEmploymentDate(Date employmentDate) {
 		this.employmentDate = employmentDate;
 	}
 	/**
@@ -110,14 +112,14 @@ public abstract class Employee {
 	 * @return releaseDate
 	 */
 	@Basic
-	public LocalDate getReleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 	/**
 	 * Sets release date
 	 * @param releaseDate
 	 */
-	public void setReleaseDate(LocalDate releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 	/**

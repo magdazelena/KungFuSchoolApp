@@ -58,19 +58,19 @@ public class Controller {
 			Person person3 = new Person("Janusz", "Jot", phones);
 			Person person4 = new Person("Stefan", "Siermiężny", phones);
 			//memebers:
-			Member m1 = new Member(person1, LocalDate.of(2000, 12, 1), 200);
-			Member m2 = new Member(person2, LocalDate.of(1980, 05,11), 300);
-			Member m3 = new Member(person3, LocalDate.of(2010,6,6), 150);
-			Member m4 = new Member(person4, LocalDate.of(1985, 9, 21), 200);
+			Member m1 = Member.createMember(person1, LocalDate.of(2000, 12, 1), 200);
+			Member m2 = Member.createMember(person2, LocalDate.of(1980, 05,11), 300);
+			Member m3 = Member.createMember(person3, LocalDate.of(2010,6,6), 150);
+			Member m4 = Member.createMember(person4, LocalDate.of(1985, 9, 21), 200);
 			//Member test = new Member(person1, LocalDate.of(1999, 12,01), 100);
 			m2.setFormerClub("EWTO Copenhagen");
 			m1.setJoinDate(LocalDate.of(2015, 12, 01));
 			
 			//students:
-			Student student1 = new Student(m1);
+			Student student1 = Student.createStudent(m1);
 			//Student student3test = new Student(m3);
-			Caretaker mum = new Caretaker(person2, Type.Mother);
-			Student student2 = new Student(m3, mum);
+			Caretaker mum = Caretaker.createCaretaker(person2, Type.Mother);
+			Student student2 = Student.createStudent(m3, mum);
 			student1.setGrade(9);
 			//test:
 			//student2.setGrade(13);
@@ -79,9 +79,9 @@ public class Controller {
 			//student2.upGrade();
 			
 			//master:
-			Master master = new Master(m2);
+			Master master = Master.createMaster(m2);
 			master.setGrade(15);
-			Master master2 = new Master(m4, master);
+			Master master2 = Master.createMaster(m4, master);
 			
 			//test:
 			//Student s = new Student(m4);
@@ -106,7 +106,7 @@ public class Controller {
 			MemberTeam mt3 = new MemberTeam(m4, team3);
 			mt3.setLeaveDate(Date.valueOf(LocalDate.of(2019, 7, 1)));
 			//Employee - Accountant
-			Accountant acc = new Accountant(person4, 4000.00, 12345);
+			Accountant acc = Accountant.createAccountant(person4, 4000.00, 12345);
 			
 			//School
 			School school = new School(master, acc);
@@ -172,14 +172,17 @@ public class Controller {
 			Session session = sessionFactory.openSession();
 			session = sessionFactory.openSession();
 			session.beginTransaction();
+			@SuppressWarnings("unchecked")
 			List<Person> peopleFromDb = session.createQuery( "from person" ).list();
 			for ( Person p : peopleFromDb) {
 				System.out.println(p+"\n");
 			}
+			@SuppressWarnings("unchecked")
 			List<Member> membersFromDb = session.createQuery( "from Member" ).list();
 			for ( Member m : membersFromDb) {
 				System.out.println(m+"\n");
 			}
+			@SuppressWarnings("unchecked")
 			List<Team> teamsFromDb = session.createQuery( "from Team" ).list();
 			
 			String[][] groupTable = new String[teamsFromDb.size()][3];

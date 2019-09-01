@@ -17,23 +17,29 @@ public class Caretaker {
 	private Type type;
 	private Person person = null;
 	private List<Student> caredFor = new ArrayList<>();
-	public Caretaker() {}
+	private Caretaker() {}
 	/**
 	 * Caretaker constructor
-	 * @param Person (required)
-	 * @param Enum Type
+	 * @param p
+	 * @param type
 	 * @throws Exception
 	 */
-	public Caretaker(Person p, Type type) throws Exception {
+	private Caretaker(Person p, Type type) throws Exception {
 		if(p == null) throw new Exception("Person must exist to become caretaker");
 		if(this.person != null) throw new Exception("Caretaker is a person");
 		setPerson(p);
 		this.type = type;
 		p.setCaretaker(this);
 	}
+	public static Caretaker createCaretaker(Person p, Type type) throws Exception {
+		if(p==null)throw new Exception("Osoba nie istnieje");
+		Caretaker c = new Caretaker(p, type);
+		p.setCaretaker(c);
+		return c;
+	}
 	/**
 	 * Gets id
-	 * @return long
+	 * @return id
 	 */
 	@Id
     @GeneratedValue(generator="increment")
@@ -45,6 +51,7 @@ public class Caretaker {
 	 * Sets id
 	 * @param long
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }

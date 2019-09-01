@@ -19,9 +19,9 @@ public class Student {
 	private final int maxGrade = 12;
 	private Member member;
 	private Caretaker caretaker = null;
-	public Student() {}
+	private Student() {}
 	
-	public Student(Member member) throws Exception {
+	private Student(Member member) throws Exception {
 		if(member == null) throw new Exception("Member must exist to become Student");
 		if(this.member != null) throw new Exception("Student is a member already");
 		if(member.getMaster()!= null) throw new Exception("This member is a master ");
@@ -29,12 +29,24 @@ public class Student {
 		this.setMember(member);
 		member.setStudent(this);
 	}
-	public Student(Member member, Caretaker caretaker) throws Exception {
+	private Student(Member member, Caretaker caretaker) throws Exception {
 		if(member == null) throw new Exception("Member must exist to become Student");
 		if(this.member != null) throw new Exception("Student is a member already");
 		setMember(member);
 		setCaretaker(caretaker);
 		member.setStudent(this);
+	}
+	public static Student createStudent(Member member) throws Exception {
+		if(member == null) throw new Exception("Uczniem może zostać tylko członek");
+		Student s = new Student(member);
+		member.setStudent(s);
+		return s;
+	}
+	public static Student createStudent(Member member, Caretaker caretaker) throws Exception {
+		if(member == null) throw new Exception("Uczniem może zostać tylko członek");
+		Student s = new Student(member, caretaker);
+		member.setStudent(s);
+		return s;
 	}
 	@Id
     @GeneratedValue(generator="increment")
@@ -42,6 +54,7 @@ public class Student {
     public long getId() {
         return id;
     }
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }

@@ -6,11 +6,8 @@
 package kungfu.Views;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
 import org.hibernate.Session;
 
-import com.sun.glass.ui.Window;
 
 import kungfu.Controller;
 import kungfu.Classes.Caretaker;
@@ -25,6 +22,10 @@ import kungfu.Classes.Student;
 public class AddCaretaker extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7952599666193672321L;
+	/**
      * Creates new form AddCaretaker
      */
 	private Member member;
@@ -62,11 +63,6 @@ public class AddCaretaker extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         wpiszNazwiskoField.setToolTipText("Wpisz nazwisko");
-        wpiszNazwiskoField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wpiszNazwiskoFieldActionPerformed(evt);
-            }
-        });
 
         dodajOpiekunaButton.setText("Dodaj nowego opiekuna członka");
         dodajOpiekunaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -83,11 +79,7 @@ public class AddCaretaker extends javax.swing.JFrame {
         });
 
         wpiszImieField.setToolTipText("Wpisz imię");
-        wpiszImieField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wpiszImieFieldActionPerformed(evt);
-            }
-        });
+
 
         jLabel1.setText("Imię:");
 
@@ -236,17 +228,11 @@ public class AddCaretaker extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void wpiszNazwiskoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszNazwiskoFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_wpiszNazwiskoFieldActionPerformed
 
     private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_anulujButtonActionPerformed
 
-    private void wpiszImieFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wpiszImieFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_wpiszImieFieldActionPerformed
 
     private void dodajOpiekunaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajOpiekunaButtonActionPerformed
         try {
@@ -256,8 +242,8 @@ public class AddCaretaker extends javax.swing.JFrame {
         		if(ojciecRadio.isSelected()) t = Caretaker.Type.Father;
         		if(innyRadio.isSelected()) t = Caretaker.Type.Other;
         		Person p = new Person(wpiszImieField.getText(), wpiszNazwiskoField.getText(), wpiszTelefonField.getText());
-        		Caretaker cr = new Caretaker(p, t);
-        		Student s = new Student(member, cr);
+        		Caretaker cr = Caretaker.createCaretaker(p, t);
+        		Student s = Student.createStudent(member, cr);
         		Session session = Controller.getSession();
         		session.beginTransaction();
         		session.save(member);
@@ -275,7 +261,7 @@ public class AddCaretaker extends javax.swing.JFrame {
         		}
         		int index = listaOpiekun.getSelectedIndex();
         		Caretaker cr = ctrList.getElementAt(index);
-        		Student s = new Student(member, cr);
+        		Student s = Student.createStudent(member, cr);
         		Session session = Controller.getSession();
         		session.beginTransaction();
         		session.save(member);

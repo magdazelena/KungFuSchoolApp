@@ -3,7 +3,9 @@ package kungfu.Classes;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,12 +27,14 @@ public class Member {
 	    private Integer monthFee;
 	    private Person person = null;
 	    private Student student = null;
+	    private static Set<Student> students = new HashSet<>();
 	    private Master master = null;
+	    private static Set<Master> masters = new HashSet<>();
 	    private String formerClub = null;
 	    
 	    private List<MemberTeam> memberTeams = new ArrayList<>();
 	    private List<Rental> memberRentals = new ArrayList<>();
-	    public Member() {}
+	    private Member() {}
 	  /**
 	   * Constructor
 	   * @param p
@@ -38,7 +42,7 @@ public class Member {
 	   * @param monthFee
 	   * @throws Exception
 	   */
-	    public Member(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
+	   private Member(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
 	    	if(p == null) throw new Exception("Person must exist to become a member");
 	    	if(p.getMember() != null) throw new Exception("The person is already a member");
 	    	setPerson(p);
@@ -48,6 +52,12 @@ public class Member {
 	    	this.joinDate = LocalDate.now();
 	    	p.setMember(this);
 	    }
+	   public static Member createMember(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
+		   if(p == null) throw new Exception("Osoba nie istnieje");
+		   Member m = new Member(p, birthDate, monthFee);
+		   p.setMember(m);	
+		   return m;
+	   }
 	    /**
 	     * Gets id
 	     * @return id
@@ -62,7 +72,8 @@ public class Member {
  * Sets id
  * @param id
  */
-	    private void setId(long id) {
+	    @SuppressWarnings("unused")
+		private void setId(long id) {
 	        this.id = id;
 	    }
 	    /**
@@ -177,14 +188,14 @@ public class Member {
 	 */
 	@Basic
 	public Integer getYearFee() {
-		return this.yearFee;
+		return yearFee;
 	}
 	/**
 	 * Sets year Fee
 	 * @param yearFee
 	 */
 	public void setYearFee(Integer yearFee) {
-		this.yearFee = yearFee;
+		Member.yearFee = yearFee;
 	}
 	/**
 	 * Gets Month Fee
@@ -251,10 +262,13 @@ public class Member {
 	/**Sets student
 	 * 
 	 * @param student
+	 * @throws Exception 
 	 */
-	public void setStudent(Student student) {
+	public void setStudent(Student student) throws Exception {
 		if(this.master == null && this.student==null) {
-			this.student = student;
+			if(students.contains(student) && student != null) throw new Exception("Taki student już istnieje");
+			   this.student = student;
+			   students.add(student);
 		}
 		
 	}
@@ -269,10 +283,13 @@ public class Member {
 	/**
 	 * Sets Master
 	 * @param master
+	 * @throws Exception 
 	 */
-	public void setMaster(Master master) {
-		if(this.master == null && this.student==null) {
-			this.master = master;
+	public void setMaster(Master master) throws Exception {
+		if(this.master == null && this.student==null ) {
+			if(masters.contains(master) && master != null) throw new Exception("Taki mistrz już istnieje");
+			   this.master = master;
+			   masters.add(master);
 		}
 		
 	}
@@ -288,8 +305,9 @@ public class Member {
 				if(this.student.getCaretaker() != null) {
 					this.student.setCaretaker(null);
 				}
+				students.remove(this.student);
 				setStudent(null);
-				Master m = new Master(this, master);
+				Master m = Master.createMaster(this, master);
 				return m;
 			}
 		}

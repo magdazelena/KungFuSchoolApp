@@ -2,7 +2,10 @@ package kungfu.Classes;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,7 +25,9 @@ public class Person {
     private Member member = null;
     private Employee employee = null;
     private Caretaker caretaker = null;
-    
+    private static Set<Employee> employees = new HashSet<>();
+    private static Set<Caretaker> caretakers = new HashSet<>();
+    private static Set<Member> members = new HashSet<>();
   
     /*req*/
     public Person() {}
@@ -67,10 +72,13 @@ public class Person {
    /**
     * Sets Member
     * @param Member
+    * @throws Exception 
     */
-   public void setMember(Member p) {
+   public void setMember(Member p) throws Exception {
 	   if(this.member == null) {
+		   if(members.contains(p) && p != null) throw new Exception("Ten członek już ma przypisaną inną osobę");
 		   this.member = p;
+		   members.add(p);
 	   }
 		   
    }
@@ -87,10 +95,14 @@ public class Person {
    /**
     * Sets employee
     * @param Employee
+ * @throws Exception 
     */
-   public void setEmployee(Employee p) {
-	   if(this.employee == null)
+   public void setEmployee(Employee p) throws Exception {
+	   if(this.employee == null) {
+		   if(employees.contains(p) && p != null) throw new Exception("Ten członek już ma przypisaną inną osobę");
 		   this.employee = p;
+		   employees.add(p);
+	   }
    }
    //asocjacja
    /**
@@ -104,10 +116,15 @@ public class Person {
    /**
     * Sets Caretaker
     * @param Caretaker
+ * @throws Exception 
     */
-   public void setCaretaker(Caretaker p) {
-	   if(this.caretaker == null)
+   public void setCaretaker(Caretaker p) throws Exception {
+	   if(this.caretaker == null) {
+		   if(caretakers.contains(p) && p!= null) throw new Exception("Ten członek już ma przypisaną inną osobę");
 		   this.caretaker = p;
+		   caretakers.add(p);
+	   }
+		   
    }
    /**
     * Gets Name

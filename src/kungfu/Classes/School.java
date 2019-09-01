@@ -48,6 +48,7 @@ public class School {
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
