@@ -238,7 +238,7 @@ public class GeneralView extends javax.swing.JFrame {
             }   
         });
         poleWyszukaniaCzlonka2.setToolTipText("Wpisz imie lub nazwisko by wyszukać");
-
+        poleWyszukaniaCzlonka2.setText("Wpisz imie lub nazwisko by wyszukać");
         szukajCzlonkaButton.setText("Szukaj");
         szukajCzlonkaButton.addActionListener(new java.awt.event.ActionListener() {
         	public void actionPerformed(java.awt.event.ActionEvent evt) {

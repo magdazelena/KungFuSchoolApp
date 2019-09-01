@@ -96,10 +96,10 @@ public class CheckMember extends javax.swing.JFrame {
         jLabel1.setText("Imie i nazwisko");
 
         imieNazwisko.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        imieNazwisko.setText(this.member.getPerson().getFullName());
+        imieNazwisko.setText(member.getPerson().getFullName());
 
         dataUrodzenia.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        dataUrodzenia.setText(this.member.getBirthDate().toString());
+        dataUrodzenia.setText(member.getBirthDate().toString());
 
         jLabel4.setText("Data urodzenia");
 
@@ -109,55 +109,59 @@ public class CheckMember extends javax.swing.JFrame {
         jLabel7.setText("Wiek");
 
         telefon.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        telefon.setText(this.member.getPerson().getPhone());
+        telefon.setText(member.getPerson().getPhone());
 
         jLabel9.setText("Telefon kontaktowy");
 
         jLabel10.setText("Poprzedni klub");
 
         poprzedniKlub.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        poprzedniKlub.setText(this.member.getFormerClub() != null?this.member.getFormerClub():"Brak klubu");
+        poprzedniKlub.setText(member.getFormerClub() != null?member.getFormerClub():"Brak klubu");
 
         jLabel12.setText("Data dołączenia");
 
         dataDolaczenia.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        dataDolaczenia.setText(this.member.getJoinDate().toString());
+        dataDolaczenia.setText(member.getJoinDate().toString());
 
         jLabel14.setText("Składka roczna");
 
         skladkaRoczna.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        skladkaRoczna.setText(this.member.getYearFee().toString());
+        skladkaRoczna.setText(member.getYearFee().toString());
 
         jLabel16.setText("Składka miesięczna");
 
         skladkaMiesieczna.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        skladkaMiesieczna.setText(this.member.getMonthFee().toString());
+        skladkaMiesieczna.setText(member.getMonthFee().toString());
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel19.setText("stopień");
 
         stopien.setFont(new java.awt.Font("Tahoma", 1, 94)); // NOI18N
-        stopien.setText(this.member.getStudent() == null ? this.member.getMaster().getGrade().toString(): this.member.getStudent().getGrade().toString());
+        stopien.setText(member.getStudent() == null ? member.getMaster().getGrade().toString(): this.member.getStudent().getGrade().toString());
 
-        jLabel18.setText("Opiekun prawny");
+        if(member.checkIfMinor()) {
+        	jLabel18.setText("Opiekun prawny");
+            opiekunPrawny.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+            opiekunPrawny.setText(member.checkIfMinor() ? member.getStudent().getCaretaker().getPerson().getFullName(): "Brak");
 
-        opiekunPrawny.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        opiekunPrawny.setText(this.member.checkIfMinor() ? this.member.getStudent().getCaretaker().getPerson().getFullName(): "Brak");
+            jLabel22.setText("Telefon kontaktowy");
+            telOpiekunPrawny.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+            telOpiekunPrawny.setText(member.checkIfMinor() ? member.getStudent().getCaretaker().getPerson().getPhone(): "Brak");
 
-        jLabel22.setText("Telefon kontaktowy");
+            jLabel24.setText("Rola");
+            rola.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+            rola.setText(this.member.checkIfMinor() ? this.member.getStudent().getCaretaker().getType().toString(): "Brak");
+        }
+        
 
-        telOpiekunPrawny.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        telOpiekunPrawny.setText(this.member.checkIfMinor() ? this.member.getStudent().getCaretaker().getPerson().getPhone(): "Brak");
+        mistrz.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        if(member.getStudent() == null)
+        	mistrz.setForeground(Color.orange);
+        else
+        	mistrz.setForeground(Color.blue);
+        mistrz.setText(member.getStudent() == null? "Mistrz":"Uczeń");
 
-        jLabel24.setText("Rola");
-
-        rola.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        rola.setText(this.member.checkIfMinor() ? this.member.getStudent().getCaretaker().getType().toString(): "Brak");
-
-        mistrz.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        mistrz.setText(this.member.getStudent() != null? "Sprawdz zakładkę: Grupy": member.getMaster().getMaster() != null?member.getMaster().getMaster().getMember().getPerson().getFullName():"Ten mistrz nie ma mistrza");
-
-        jLabel27.setText("Mistrz");
+        jLabel27.setText("Typ członka");
 
         if(member.getStatus() == Member.Status.Active)
         	status.setForeground(Color.green);
@@ -237,7 +241,7 @@ public class CheckMember extends javax.swing.JFrame {
                                         .addComponent(mistrz))
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.DEFAULT_SIZE)))))))
                 .addGap(314, 324, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -334,9 +338,8 @@ public class CheckMember extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane2)
+                
         );
 
         jTabbedPane1.addTab("Grupy", jPanel2);
@@ -411,20 +414,7 @@ public class CheckMember extends javax.swing.JFrame {
         }
         /**/
       //**
-        if(member.checkIfMinor()) {
-        	
-        	javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-            jPanel6.setLayout(jPanel6Layout);
-            jPanel6Layout.setHorizontalGroup(
-                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
-            );
-            jPanel6Layout.setVerticalGroup(
-                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane6)
-            );
-        	jTabbedPane1.addTab("Dane opiekuna prawnego", jPanel6);
-        }
+       
         /**/
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -434,9 +424,9 @@ public class CheckMember extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.DEFAULT_SIZE)
                     .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
