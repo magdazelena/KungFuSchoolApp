@@ -386,7 +386,7 @@ public class CheckGroup extends javax.swing.JFrame {
     private static Team team;
     /**
      * Sets team for component
-     * @param m Team
+     * @param t Team
      */
 	public void setTeam(Team t) {
 		team = t;
