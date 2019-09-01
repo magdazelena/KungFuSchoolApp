@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import kungfu.Classes.Member;
+import kungfu.Classes.Team;
 
 /**
  * @version 1.0
@@ -36,7 +37,7 @@ public class GeneralView extends javax.swing.JFrame {
         initComponents();
     }
     MemberTable memberTableModel = new MemberTable();
-    
+    TeamTable teamTableModel = new TeamTable();
     private void initComponents() {
 
         zakladki = new javax.swing.JTabbedPane();
@@ -122,14 +123,17 @@ public class GeneralView extends javax.swing.JFrame {
 
         szukajGrupyButton.setText("Szukaj");
       //Grupy
-        TeamTable teamTableModel = new TeamTable();
         grupyTabela.setModel(teamTableModel);
         grupyTabela.setColumnSelectionAllowed(true);
         grupyTabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(grupyTabela);
         grupyTabela.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         grupyTabela.getAccessibleContext().setAccessibleName("Lista moich grup");
-
+        grupyTabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grupyTabelaMouseClicked(evt);
+            }
+        });
         dodajGrupeButton.setBackground(new java.awt.Color(12, 240, 20));
         dodajGrupeButton.setText("Dodaj nową grupę");
 
@@ -354,10 +358,23 @@ public class GeneralView extends javax.swing.JFrame {
         // TODO add your handling code here:
     	if( evt.getClickCount() == 2) {
     		int index = CzlonkowieTable.getSelectedRow();
-    		System.out.println(index);
             Member m = memberTableModel.getMembers().get(index);
-            System.out.println(m);
             CheckMember check = new CheckMember(m);
+            check.setVisible(true);
+            check.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          
+    	}
+    }//GEN-LAST:event_CzlonkowieTableMouseClicked
+    /**
+     * Widget on double click on group
+     * @param evt MouseEvent
+     */
+    private void grupyTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CzlonkowieTableMouseClicked
+        // TODO add your handling code here:
+    	if( evt.getClickCount() == 2) {
+    		int index = grupyTabela.getSelectedRow();
+            Team m = teamTableModel.getTeams().get(index);
+            CheckGroup check = new CheckGroup(m);
             check.setVisible(true);
             check.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           
