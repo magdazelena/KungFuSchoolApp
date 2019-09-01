@@ -1,9 +1,7 @@
 package kungfu.Classes;
 
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -11,6 +9,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 /**
  * Person class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name = "person")
@@ -33,9 +33,9 @@ public class Person {
     public Person() {}
     /**
      * Constructor
-     * @param String name
-     * @param String lastName
-     * @param String phone
+     * @param name First name of person
+     * @param lastName Last name of person
+     * @param phone Telephone of person
      */
     public Person(String name, String lastName, String phone){
         this.lastName = lastName;
@@ -56,7 +56,8 @@ public class Person {
     /**Sets id
      * @param long
      */
-    private void setId(long id) {
+    @SuppressWarnings("unused")
+	private void setId(long id) {
         this.id = id;
     }
   //asocjacja
@@ -71,8 +72,8 @@ public class Person {
    }
    /**
     * Sets Member
-    * @param Member
-    * @throws Exception 
+    * @param p Member to be set
+    * @throws Exception if Member is already a Person
     */
    public void setMember(Member p) throws Exception {
 	   if(this.member == null) {
@@ -94,8 +95,8 @@ public class Person {
    }
    /**
     * Sets employee
-    * @param Employee
- * @throws Exception 
+    * @param p Employee to be set
+    * @throws Exception if Employee is already a Person
     */
    public void setEmployee(Employee p) throws Exception {
 	   if(this.employee == null) {
@@ -115,8 +116,8 @@ public class Person {
    }
    /**
     * Sets Caretaker
-    * @param Caretaker
- * @throws Exception 
+    * @param p Caretaker to be set
+    * @throws Exception if Caretaker is already a Person
     */
    public void setCaretaker(Caretaker p) throws Exception {
 	   if(this.caretaker == null) {
@@ -136,7 +137,7 @@ public class Person {
     }
     /**
      * Sets name
-     * @param String
+     * @param name First name String
      */
     public void setName(String name) {
     	this.name = name;
@@ -151,15 +152,15 @@ public class Person {
     }
     /**
      * Sets last name
-     * @param String
+     * @param lastName Last name String
      */
     public void setLastName(String lastName) {
     	this.lastName = lastName;
     }
-/**
- * Get full concat name
- * @return String
- */
+	/**
+	 * Get full concat name
+	 * @return String
+	 */
     @Transient
     public String getFullName() {
     	return getName()+" "+getLastName();
@@ -174,7 +175,7 @@ public class Person {
     }
     /**
      * Sets phone
-     * @param String
+     * @param number Phone number string
      */
     public void setPhone(String number) {
     	this.phone = number;

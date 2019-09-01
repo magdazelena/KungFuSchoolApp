@@ -9,6 +9,10 @@ import org.hibernate.Session;
 
 public class MemberTable extends AbstractTableModel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2586643852700533422L;
 	private List<Member> members = new ArrayList<>();
 	public MemberTable() {
 		this.updateData("");

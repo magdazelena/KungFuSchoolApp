@@ -9,12 +9,13 @@ import org.hibernate.Session;
 
 import kungfu.Controller;
 import kungfu.Classes.Caretaker;
-import kungfu.Classes.Member;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "rawtypes" })
 public class CaretakerList extends AbstractListModel{
 
 	private List<Caretaker> caretakers = new ArrayList<>();
+
+	@SuppressWarnings("unchecked")
 	public CaretakerList() {
 		Session s = Controller.getSession();
 		this.setCaretakers(s.createQuery( "from Caretaker" ).list());

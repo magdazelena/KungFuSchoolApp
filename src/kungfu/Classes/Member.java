@@ -1,5 +1,6 @@
 package kungfu.Classes;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 /**
  * Member class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="Member")
@@ -20,8 +23,8 @@ public class Member {
 		private long id;
 	
 		public enum Status {New, Active, Suspended, Excluded}
-		private LocalDate joinDate;
-		private LocalDate birthDate;
+		private Date joinDate;
+		private Date birthDate;
 	    private Status status;
 	    static Integer yearFee = 200;
 	    private Integer monthFee;
@@ -36,22 +39,30 @@ public class Member {
 	    private List<Rental> memberRentals = new ArrayList<>();
 	    private Member() {}
 	  /**
-	   * Constructor
-	   * @param p
-	   * @param birthDate
-	   * @param monthFee
-	   * @throws Exception
+	   * Member private constructor
+	   * @param p Person to become Member
+	   * @param birthDate Birthdate of Member LocalDate
+	   * @param monthFee Monthly fee Integer
+	   * @throws Exception if Person is null
 	   */
 	   private Member(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
 	    	if(p == null) throw new Exception("Person must exist to become a member");
 	    	if(p.getMember() != null) throw new Exception("The person is already a member");
 	    	setPerson(p);
-	    	this.birthDate = birthDate;
+	    	this.birthDate = Date.valueOf(birthDate);
 	    	this.monthFee = monthFee;
 	    	this.status = Status.New;
-	    	this.joinDate = LocalDate.now();
+	    	this.joinDate = Date.valueOf(LocalDate.now());
 	    	p.setMember(this);
 	    }
+	   /**
+	    * Static method to create Member
+	    * @param p Person to become member
+	    * @param birthDate birth date of Member LocalDate
+	    * @param monthFee monthly fee Integer
+	    * @return Member
+	    * @throws Exception if Person is null
+	    */
 	   public static Member createMember(Person p, LocalDate birthDate, Integer monthFee) throws Exception {
 		   if(p == null) throw new Exception("Osoba nie istnieje");
 		   Member m = new Member(p, birthDate, monthFee);
@@ -68,10 +79,10 @@ public class Member {
 	    public long getId() {
 	        return id;
 	    }
-/**
- * Sets id
- * @param id
- */
+		/**
+		 * Sets id
+		 * @param id
+		 */
 	    @SuppressWarnings("unused")
 		private void setId(long id) {
 	        this.id = id;
@@ -89,8 +100,8 @@ public class Member {
 	   }
 	   /**
 	    * Sets Person
-	    * @param p
-	    * @throws Exception
+	    * @param p Person to become Member
+	    * @throws Exception if Person is null
 	    */
 	   public void setPerson(Person p) throws Exception {
 		   if(p == null) throw new Exception("Can't set person to null");
@@ -99,7 +110,7 @@ public class Member {
 	   }
 	    /**
 	     * Association
-	     * Gets MemberTeams
+	     * Gets MemberTeams List
 	     * @return memberTeams
 	     */
 	   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -108,7 +119,7 @@ public class Member {
 	   }
 	   /**
 	    * Adds member team
-	    * @param pg
+	    * @param pg MemberTeam for connecting Member with Team
 	    */
 	   public void addMemberTeam(MemberTeam pg) {
 		   if(this.status == Status.New)
@@ -120,7 +131,7 @@ public class Member {
 	   }
 	   /**
 	    * Removes MemberTeam
-	    * @param pg
+	    * @param pg MemberTeam for connecting Member with Team
 	    */
 	   public void removeMemberTeam(MemberTeam pg) {
 		   if(this.getMemberTeams().contains(pg)) {
@@ -130,7 +141,7 @@ public class Member {
 	   }
 	   /**
 	    * Sets MemberTeam
-	    * @param pg
+	    * @param pg MemberTeam for connecting Member with Team
 	    */
 	   public void setMemberTeams(List<MemberTeam> pg) {
 		   this.memberTeams = pg;
@@ -147,7 +158,7 @@ public class Member {
 	}
 	/**
 	 * Sets status
-	 * @param status
+	 * @param status Status in Enum (New, Active, Suspended, Excluded)
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
@@ -157,14 +168,14 @@ public class Member {
 	 * @return joinDate
 	 */
 	@Basic
-	public LocalDate getJoinDate() {
+	public Date getJoinDate() {
 		return this.joinDate;
 	}
 	/**
 	 * SetsJoinDate
-	 * @param date
+	 * @param date Joining Date in sql.Date format
 	 */
-	public void setJoinDate(LocalDate date) {
+	public void setJoinDate(Date date) {
 		this.joinDate = date;
 	}
 	/**
@@ -172,14 +183,14 @@ public class Member {
 	 * @return birthDate
 	 */
 	@Basic
-	public LocalDate getBirthDate() {
+	public Date getBirthDate() {
 		return this.birthDate;
 	}
 	/**
 	 * Sets birthdate
-	 * @param date
+	 * @param date in sql.Date format
 	 */
-	public void setBirthDate(LocalDate date) {
+	public void setBirthDate(Date date) {
 		this.birthDate = date;
 	}
 	/**
@@ -192,7 +203,7 @@ public class Member {
 	}
 	/**
 	 * Sets year Fee
-	 * @param yearFee
+	 * @param yearFee Class value of yearFee
 	 */
 	public void setYearFee(Integer yearFee) {
 		Member.yearFee = yearFee;
@@ -207,7 +218,7 @@ public class Member {
 	}
 	/**
 	 * Sets month fee
-	 * @param monthFee
+	 * @param money Integer of fee to be payed each month
 	 */
 	public void setMonthFee(Integer money) {
 		this.monthFee = money;
@@ -222,7 +233,7 @@ public class Member {
     }
     /**
      * Sets Former Club
-     * @param fc
+     * @param fc Former Club of Member(optional)
      */
     public void setFormerClub(String fc) {
     	this.formerClub = fc;
@@ -233,7 +244,7 @@ public class Member {
      */
     @Transient
     public Boolean checkIfMinor() {
-    	return Period.between(getBirthDate(), LocalDate.now()).getYears() < 18;
+    	return Period.between(getBirthDate().toLocalDate(), LocalDate.now()).getYears() < 18;
     }
 	/**
 	 * Check how long is a member registered
@@ -241,7 +252,7 @@ public class Member {
 	 */
 	@Transient
 	public Integer getYears() {
-		return Period.between(getJoinDate(),LocalDate.now()).getYears();
+		return Period.between(getJoinDate().toLocalDate(),LocalDate.now()).getYears();
 	}
 	/**
 	 * Override to String
@@ -252,7 +263,7 @@ public class Member {
 	
 	/**
 	 * Association
-	 *Gets student
+	 * Gets student
 	 * @return student
 	 */
 	@OneToOne(mappedBy = "member", orphanRemoval = true)
@@ -261,8 +272,8 @@ public class Member {
 	}
 	/**Sets student
 	 * 
-	 * @param student
-	 * @throws Exception 
+	 * @param student Student to be set
+	 * @throws Exception if student is already a member
 	 */
 	public void setStudent(Student student) throws Exception {
 		if(this.master == null && this.student==null) {
@@ -282,8 +293,8 @@ public class Member {
 	}
 	/**
 	 * Sets Master
-	 * @param master
-	 * @throws Exception 
+	 * @param master Master to be set
+	 * @throws Exception if Master is already a Member
 	 */
 	public void setMaster(Master master) throws Exception {
 		if(this.master == null && this.student==null ) {
@@ -295,9 +306,9 @@ public class Member {
 	}
 	/**
 	 * Upgrade to Master
-	 * @param master
-	 * @return m
-	 * @throws Exception 
+	 * @param master Master doing the upgrade
+	 * @return Master of this Member
+	 * @throws Exception if this Member is not a student
 	 */
 	public Master upgradeToMaster(Master master) throws Exception {
 		if(this.student != null && !checkIfMinor()) {
@@ -326,9 +337,9 @@ public class Member {
 	public void setMemberRentals(List<Rental> memberRentals) {
 		this.memberRentals = memberRentals;
 	}
-	/**
-	    * 
-	    * @param pg
+		/**
+	    * Adding Rental to Member
+	    * @param pg Rental to be added
 	    */
 	   public void addRental(Rental pg) {
 		   if(!this.getMemberRentals().contains(pg)) {
@@ -337,13 +348,20 @@ public class Member {
 		   }
 	   }
 	   /**
-	    * Removes MemberTeam
-	    * @param pg
+	    * Removes Rental from Member
+	    * @param pg Rental to be removed
 	    */
 	   public void removeRental(Rental pg) {
 		   if(this.getMemberRentals().contains(pg)) {
 			   getMemberRentals().remove(pg);
 			   pg.setMember(null);
 		   }
+	   }
+	   /**
+	    * Get number of students
+	    * @return Integer student list size
+	    */
+	   public static Integer getStudentListSize() {
+		   return students.size();
 	   }
 }

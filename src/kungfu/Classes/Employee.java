@@ -9,6 +9,8 @@ import org.hibernate.annotations.GenericGenerator;
 /**
  * Employee class (abstract)
  * @see java.lang.Object
+ * @version 1.0
+ * @author magda
  */
 @Entity(name="Employee")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)  
@@ -24,10 +26,10 @@ public abstract class Employee {
 	
 	public Employee() {}
 /**
- * Constructor Employee
- * @param person
- * @param salary
- * @throws Exception
+ * Constructor Employee (Abstract)
+ * @param person Person to become employee
+ * @param salary Salary of employee in Double	
+ * @throws Exception if person is null
  */
 	public Employee(Person person,Double salary) throws Exception {
 		if(person == null) throw new Exception("Person must exist to become Employee");
@@ -49,8 +51,8 @@ public abstract class Employee {
 	   }
 	 /**
 	  * Sets person
-	  * @param p
-	  * @throws Exception
+	  * @param p Person to be set
+	  * @throws Exception if Person is null
 	  */
 	   public void setPerson(Person p) throws Exception {
 		   if(p == null) throw new Exception("Can't set person to null");
@@ -68,7 +70,7 @@ public abstract class Employee {
 	}
 	/**
 	 * Raise salary
-	 * @param percent
+	 * @param percent Percent of salary raise
 	 */
 	public void raiseSalary(Double percent) {
 		this.salary = this.salary*percent + this.salary;
@@ -102,7 +104,7 @@ public abstract class Employee {
 /**
  * Sets employment date
  * 
- * @param employmentDate
+ * @param employmentDate in sql.Date format
  */
 	public void setEmploymentDate(Date employmentDate) {
 		this.employmentDate = employmentDate;
@@ -117,7 +119,7 @@ public abstract class Employee {
 	}
 	/**
 	 * Sets release date
-	 * @param releaseDate
+	 * @param releaseDate is sql.Date format
 	 */
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
@@ -132,7 +134,7 @@ public abstract class Employee {
 	}
 	/**
 	 * Sets salary
-	 * @param salary
+	 * @param salary Employee salary in Double
 	 */
 	public void setSalary(Double salary) {
 		this.salary = salary;
@@ -145,10 +147,10 @@ public abstract class Employee {
 	public Long getTaxIdNumber() {
 		return TaxIdNumber;
 	}
-/**
- * Sets tax id number
- * @param taxIdNumber
- */
+	/**
+	 * Sets tax id number
+	 * @param taxIdNumber (optional)
+	 */
 	public void setTaxIdNumber(Long taxIdNumber) {
 		TaxIdNumber = taxIdNumber;
 	}

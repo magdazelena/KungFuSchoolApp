@@ -9,13 +9,19 @@ import javax.swing.AbstractListModel;
 
 import org.hibernate.Session;
 
+@SuppressWarnings("rawtypes")
 public class TeamList extends AbstractListModel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7117264642927965243L;
 	private List<Team> teams = new ArrayList<>();
 	
 	public TeamList() {
 		update("");
 	}
+	@SuppressWarnings("unchecked")
 	public void update(String params) {
 		Session s = Controller.getSession();
 		if(params.length() > 0)

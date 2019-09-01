@@ -1,14 +1,16 @@
 package kungfu.Views;
 import java.util.*;
 
-import kungfu.Controller;
 import kungfu.Classes.*;
 import javax.swing.table.AbstractTableModel;
 
-import org.hibernate.Session;
 
 public class RentalMemberTable extends AbstractTableModel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Rental> memRentals = new ArrayList<>();
 	public RentalMemberTable(Member m) {
 		this.memRentals =m.getMemberRentals();

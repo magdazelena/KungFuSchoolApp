@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 /**
  * Equipment class (abstract)
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="Equipment")
@@ -27,11 +29,11 @@ public abstract class Equipment {
 	private String name;
 	private School school;
 	public Equipment() {}
-/**
- * Equipment constructor
- * @param serial
- * @param name
- */
+	/**
+	 * Equipment constructor
+	 * @param serial Serial number of equipment passed as Integer
+	 * @param name Name of the equipment
+	 */
 	public Equipment(int serial,String name) {
 		setName(name);
 		setSerialNumber(serial);
@@ -50,6 +52,7 @@ public abstract class Equipment {
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
@@ -61,10 +64,10 @@ public abstract class Equipment {
 	public String getName() {
 		return name;
 	}
-/**
- * Sets name
- * @param name
- */
+	/**
+	 * Sets name
+	 * @param name Name of equipment
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -77,10 +80,10 @@ public abstract class Equipment {
 	public School getSchool() {
 		return school;
 	}
-/**
- * Sets school
- * @param school
- */
+	/**
+	 * Sets school
+	 * @param school School to assigned to equipment
+	 */
 	public void setSchool(School school) {
 		this.school = school;
 	}
@@ -94,7 +97,7 @@ public abstract class Equipment {
 	}
 	/**
 	 * Sets Serial
-	 * @param serialNumber
+	 * @param serialNumber Integer of serial number of equipment
 	 */
 	
 	public void setSerialNumber(int serialNumber) {

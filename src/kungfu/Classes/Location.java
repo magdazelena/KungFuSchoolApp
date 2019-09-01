@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +14,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 /**
  * Location class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="Location")
@@ -30,13 +30,13 @@ public class Location {
 	private List<Team> teams = new ArrayList<>();
 	private Location() {}
 /**
- * 
- * @param school
- * @param street
- * @param number
- * @param zip
- * @param city
- * @param isHq
+ * Private constructor for the Location object
+ * @param school School object to be assigned
+ * @param street Street name
+ * @param number House number Integer
+ * @param zip Zipcode Integer
+ * @param city City name String
+ * @param isHq Boolean if the Location is the head quaters of school
  */
 	private Location(School school, String street, Integer number, Integer zip, String city, Boolean isHq) {
 		this.street =street;
@@ -48,14 +48,14 @@ public class Location {
 	}
 	/**
 	 * Static creator
-	 * @param school
-	 * @param street
-	 * @param number
-	 * @param zipcode
-	 * @param city
-	 * @param isHq
+	 * @param school School object to be assigned
+	 * @param street Street name
+	 * @param number House number Integer
+	 * @param zipcode Zipcode IntegeR
+	 * @param city City name String
+	 * @param isHq Boolean if the Location is the head quaters of school
 	 * @return Location
-	 * @throws Exception
+	 * @throws Exception if School is null
 	 */
 	public static Location createLocation(School school, String street, Integer number, Integer zipcode, String city, Boolean isHq) throws Exception {
 		if(school == null) throw new Exception("School must exist");
@@ -77,6 +77,7 @@ public class Location {
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
@@ -90,13 +91,13 @@ public class Location {
 	}
 	/**
 	 * Sets street
-	 * @param street
+	 * @param street Street name String
 	 */
 	public void setStreet(String street) {
 		this.street = street;
 	}
 	/**
-	 * Gets number
+	 * Gets house number
 	 * @return number
 	 */
 	@Basic
@@ -104,8 +105,8 @@ public class Location {
 		return number;
 	}
 	/**
-	 * Sets number
-	 * @param number
+	 * Sets house number
+	 * @param number House number as Integer
 	 */
 	public void setNumber(Integer number) {
 		this.number = number;
@@ -120,7 +121,7 @@ public class Location {
 	}
 	/**
 	 * Sets zipcode
-	 * @param zipcode
+	 * @param zipcode Zipcode in Integer
 	 */
 	public void setZipcode(Integer zipcode) {
 		this.zipcode = zipcode;
@@ -135,7 +136,7 @@ public class Location {
 	}
 	/**
 	 * Sets city
-	 * @param city
+	 * @param city City name String
 	 */
 	public void setCity(String city) {
 		this.city = city;
@@ -152,13 +153,13 @@ public class Location {
 	}
 	/**
 	 * Sets School
-	 * @param school
+	 * @param school School object to be associated
 	 */
 	public void setSchool(School school) {
 		this.school = school;
 	}
 	/**
-	 * Gets headquarters
+	 * Gets if Location is headquarters
 	 * @return isHQ
 	 */
 	@Basic
@@ -167,7 +168,7 @@ public class Location {
 	}
 	/**
 	 * Sets headquarters
-	 * @param isHQ
+	 * @param isHQ Boolean if Location is headquarters
 	 */
 	public void setIsHQ(Boolean isHQ) {
 		this.isHQ = isHQ;
@@ -183,14 +184,14 @@ public class Location {
 	}
 	/**
 	 * Sets teams list
-	 * @param teams
+	 * @param teams List of Team objects for the Location
 	 */
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
 	/**
 	 * Add team
-	 * @param team
+	 * @param team Team to be added to Location
 	 */
 	public void addTeam(Team team) {
 		if(!this.teams.contains(team)) {
@@ -199,13 +200,16 @@ public class Location {
 	}
 	/**
 	 * Remove team
-	 * @param team
+	 * @param team Team to be removed from list in Location
 	 */
 	public void removeTeam(Team team) {
 		if(this.teams.contains(team)) {
 			this.teams.remove(team);
 		}
 	}
+	/**
+	 * Overrides toString method
+	 */
 	public String toString(){
 		return "ul. "+this.getStreet()+" "+this.getNumber()+", "+this.getZipcode()+" "+this.getCity();
 	}

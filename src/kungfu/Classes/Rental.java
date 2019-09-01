@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 /**
  * Rental class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="Rental")
@@ -24,9 +26,9 @@ public class Rental {
 	public Rental() {}
 	/**
 	 * Constructor
-	 * @param member
-	 * @param eq
-	 * @throws Exception
+	 * @param member Member to be renting equipment
+	 * @param eq EquipmentSportive to be rented by member
+	 * @throws Exception if member grade is too low to rent the equipment
 	 */
 	public Rental(Member member, EquipmentSportive eq) throws Exception {
 		if(member.getStudent() != null)
@@ -38,10 +40,10 @@ public class Rental {
 		eq.addRented(this);
 		this.rentDay = Date.valueOf(LocalDate.now());
 	}
-/**
- * Gets id
- * @return id
- */
+	/**
+	 * Gets id
+	 * @return id
+	 */
 	@Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
@@ -52,6 +54,7 @@ public class Rental {
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
@@ -65,7 +68,7 @@ public class Rental {
 	}
 	/**
 	 * Sets rent day
-	 * @param rentDay
+	 * @param rentDay day of rental in sql.Date
 	 */
 	public void setRentDay(Date rentDay) {
 		this.rentDay = rentDay;
@@ -80,7 +83,7 @@ public class Rental {
 	}
 	/**
 	 * Sets return day
-	 * @param returnDay
+	 * @param returnDay return day in sql.Date format
 	 */
 	public void setReturnDay(Date returnDay) {
 		this.returnDay = returnDay;
@@ -95,7 +98,7 @@ public class Rental {
 	}
 	/**
 	 * Sets Equipment sportive
-	 * @param eqSportive
+	 * @param eqSportive EquipmentSportive to be set
 	 */
 	public void setEqSportive(EquipmentSportive eqSportive) {
 		this.eqSportive = eqSportive;
@@ -110,7 +113,7 @@ public class Rental {
 	}
 	/**
 	 * Sets Member
-	 * @param member
+	 * @param member Member to be set
 	 */
 	public void setMember(Member member) {
 		this.member = member;

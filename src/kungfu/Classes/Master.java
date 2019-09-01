@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,7 +18,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import kungfu.Classes.Member.Status;
 /**
- * Master class
+ * Master class (part of Member)
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="Master")
@@ -34,10 +35,10 @@ public class Master {
 	private List<EquipmentDecorative> decors = new ArrayList<>();
 	private Master() {}
 /**
- * Constructor
- * @param member
- * @param master
- * @throws Exception
+ * Private constructor 
+ * @param member Member to become the Master
+ * @param master Master of this Master
+ * @throws Exception if Member is null
  */
 	private Master(Member member, Master master) throws Exception {
 		if(member == null) throw new Exception ("Member must exist to become master");
@@ -51,8 +52,8 @@ public class Master {
 	}
 	/**
 	 * Constructor (no master)
-	 * @param member
-	 * @throws Exception
+	 * @param member Member to become Master
+	 * @throws Exception if the member is null
 	 */
 	private Master(Member member) throws Exception {
 		if(member == null) throw new Exception ("Member must exist to become master");
@@ -61,12 +62,25 @@ public class Master {
 		setMember(member);
 		member.setMaster(this);
 	}
+	/**
+	 * Static method to create Master
+	 * @param member Member to become master
+	 * @return Master
+	 * @throws Exception is Member is null
+	 */
 	public static Master createMaster(Member member) throws Exception {
 		if(member == null) throw new Exception("Mistrz musi być członkiem");
 		Master m = new Master(member);
 		member.setMaster(m);
 		return m;
 	}
+	/**
+	 * Static method to create Master
+	 * @param member Member to become master
+	 * @param master Master of this Master
+	 * @return Master
+	 * @throws Exception is Member is null
+	 */
 	public static Master createMaster(Member member, Master master) throws Exception {
 		if(member == null) throw new Exception("Mistrz musi być członkiem");
 		Master m = new Master(member, master);
@@ -103,8 +117,8 @@ public class Master {
 	}
 	 /**
 	  * Sets Member
-	  * @param member
-	  * @throws Exception
+	  * @param member Member to become Master
+	  * @throws Exception is member is null
 	  */
 	public void setMember(Member member) throws Exception {
 		if(member == null) throw new Exception("Can't set member to null");
@@ -121,7 +135,7 @@ public class Master {
 	}
 /**
  * Sets grade
- * @param grade
+ * @param grade Integer of member grade
  */
 	public void setGrade(Integer grade) {
 		this.grade = grade;
@@ -138,7 +152,7 @@ public class Master {
 /**
  * Sets Master
  * 
- * @param master
+ * @param master Master of this Master
  */
 	public void setMaster(Master master) {
 		if(this.master == null) {
@@ -159,7 +173,7 @@ public class Master {
 	}
 	/**
 	 * Sets followers
-	 * @param followers
+	 * @param followers List of Masters following this master
 	 */
 	public void setFollowers(List<Master> followers) {
 		this.followers = followers;
@@ -167,7 +181,7 @@ public class Master {
 	
 	/**
 	 * Add follower
-	 * @param master
+	 * @param master add follower to this Master
 	 */
 	public void addFollower(Master master) {
 		if(!this.followers.contains(master)) {
@@ -177,7 +191,7 @@ public class Master {
 	}
 	/**
 	 * Remove follower
-	 * @param master
+	 * @param master remove follower of this Master
 	 */
 	public void removeFollower(Master master) {
 		if(this.followers.contains(master)) {
@@ -197,14 +211,14 @@ public class Master {
 	}
 /**
  * Sets led teams
- * @param ledTeams
+ * @param ledTeams List of teams this master leads
  */
 	public void setLedTeams(List<Team> ledTeams) {
 		this.ledTeams = ledTeams;
 	}
 	/**
 	 * Add team
-	 * @param team
+	 * @param team Team to be added to the list of led teams
 	 */
 	public void addTeam(Team team) {
 		if(!this.getLedTeams().contains(team)) {
@@ -214,7 +228,7 @@ public class Master {
 	}
 /**
  * Remove team
- * @param team
+ * @param team Team to be removed from the list of led teams
  */
 	public void removeTeam(Team team) {
 		if(this.getLedTeams().contains(team)) {
@@ -233,7 +247,7 @@ public class Master {
 	}
 /**
  * Sets led school
- * @param ledSchool
+ * @param ledSchool School that is Led by this master
  */
 	public void setLedSchool(School ledSchool) {
 		if(this.ledSchool == null) {
@@ -254,14 +268,14 @@ public class Master {
 	}
 /**
  * Sets decors
- * @param decors
+ * @param decors List of decors protected by this master
  */
 	public void setDecors(List<EquipmentDecorative> decors) {
 		this.decors = decors;
 	}
 	/**
 	 * Add decor
-	 * @param decor
+	 * @param decor Adds to the list of decors protected by this master
 	 */
 	public void addDecor(EquipmentDecorative decor) {
 		if(!getDecors().contains(decor)) {

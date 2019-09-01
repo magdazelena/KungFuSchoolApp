@@ -7,6 +7,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 /**
  * Team class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="Team")
@@ -22,9 +24,9 @@ public class Team {
 	public Team() {}
 /**
  * Constructor
- * @param nr
- * @param master
- * @throws Exception
+ * @param nr Team number
+ * @param master Master leading the team
+ * @throws Exception if there is no master
  */
 	public Team(Integer nr, Master master) throws Exception {
 		if(master == null) throw new Exception("Master may not be null");
@@ -41,25 +43,26 @@ public class Team {
     public long getId() {
         return id;
     }
-/**
- * Sets id
- * @param id
- */
-    private void setId(long id) {
-        this.id = id;
-    }
-    /**
-     * Gets team nr
-     * @return TeamNr
-     */
+	/**
+	 * Sets id
+	 * @param id
+	 */
+	    @SuppressWarnings("unused")
+		private void setId(long id) {
+	        this.id = id;
+	    }
+	    /**
+	     * Gets team number
+	     * @return TeamNr
+	     */
 	   @Basic 
 	   @Column(unique=true)
 	   public Integer getTeamNr() {
 		   return this.TeamNr;
 	   }
 	   /**
-	    * Sets team nr 
-	    * @param nr
+	    * Sets team number
+	    * @param nr Integer team number
 	    */
 	   public void setTeamNr(Integer nr) {
 		   this.TeamNr = nr;
@@ -75,7 +78,7 @@ public class Team {
 	   }
 	   /**
 	    * Adding single MemberTeam object to list
-	    * @param pg
+	    * @param pg MemberTeam to be added
 	    */
 	   public void addMemberTeam(MemberTeam pg) {
 		   getMemberTeams().add(pg);
@@ -83,7 +86,7 @@ public class Team {
 	   }
 	   /**
 	    * Removing single MemberTeam from list
-	    * @param pg
+	    * @param pg MemberTeam to be removed
 	    */
 	   public void removeMemberTeam(MemberTeam pg) {
 		   getMemberTeams().remove(pg);
@@ -91,7 +94,7 @@ public class Team {
 	   }
 	   /**
 	    * Sets list of MemberTeams
-	    * @param pg
+	    * @param pg MemberTeam list
 	    */
 	   public void setMemberTeams(List<MemberTeam> pg) {
 		   this.memberTeams = pg;
@@ -113,7 +116,7 @@ public class Team {
 	}
 	/**
 	 * Sets Master for the team
-	 * @param master
+	 * @param master Master to be set
 	 */
 	public void setMaster(Master master) {
 		if(this.master == null) {
@@ -132,7 +135,7 @@ public class Team {
 	}
 	/**
 	 * Sets days of team
-	 * @param days
+	 * @param days Days List String
 	 */
 	public void setDays(List<String> days) {
 		this.days = days;
@@ -148,7 +151,7 @@ public class Team {
 	}
 	/**
 	 * Sets hours of team
-	 * @param hours
+	 * @param hours Hours List String
 	 */
 	public void setHours(List<String> hours) {
 		this.hours = hours;
@@ -163,7 +166,7 @@ public class Team {
 	}
 	/**
 	 * Sets Location
-	 * @param location
+	 * @param location Location to be set
 	 */
 	public void setLocation(Location location) {
 		if(this.location != location) {
@@ -175,7 +178,7 @@ public class Team {
 	}
 	/**
 	 * Modify month fee of all team members
-	 * @param change
+	 * @param change Integer on modified fee
 	 */
 	public void modifyMonthFee(Integer change) {
 		for(MemberTeam mt : memberTeams) {

@@ -2,7 +2,11 @@ package kungfu;
 
 
 import kungfu.Views.GeneralView;
-
+/**
+ * @version 1.0
+ * @author magda
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {

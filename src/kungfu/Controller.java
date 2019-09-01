@@ -26,14 +26,20 @@ import kungfu.Classes.School;
 import kungfu.Classes.Student;
 import kungfu.Classes.Team;
 import kungfu.Classes.Caretaker.Type;
-
+/**
+ * @version 1.0
+ * @author magda
+ *
+ */
 public class Controller {
 	
 	
 	
 		private static StandardServiceRegistry registry = null;
 		private static SessionFactory sessionFactory = null;
-		
+		/**
+		 * Constructor for controller class, takes no params
+		 */
 		public Controller() {
 			try {
 				registry = new StandardServiceRegistryBuilder()
@@ -45,10 +51,17 @@ public class Controller {
 				StandardServiceRegistryBuilder.destroy( registry );
 			}
 		}
-		
+		/**
+		 * Opens up session factory
+		 * @return Session
+		 */
 		public static Session getSession() {
 			return sessionFactory.openSession();
 		}
+		/**
+		 * Generates sample data for the db fill
+		 * @throws Exception if session goes wrong
+		 */
 		public static void generateData() throws Exception {
 			//test data
 			String phones = "78787979";
@@ -64,7 +77,7 @@ public class Controller {
 			Member m4 = Member.createMember(person4, LocalDate.of(1985, 9, 21), 200);
 			//Member test = new Member(person1, LocalDate.of(1999, 12,01), 100);
 			m2.setFormerClub("EWTO Copenhagen");
-			m1.setJoinDate(LocalDate.of(2015, 12, 01));
+			m1.setJoinDate(Date.valueOf(LocalDate.of(2015, 12, 01)));
 			
 			//students:
 			Student student1 = Student.createStudent(m1);
@@ -167,6 +180,9 @@ public class Controller {
 			session.close();
 			session.getSessionFactory().close();
 		}
+		/**
+		 * Prints data from the db
+		 */
 		public static void printExampleData() {
 			System.out.println("\nZ bazy danych");
 			Session session = sessionFactory.openSession();

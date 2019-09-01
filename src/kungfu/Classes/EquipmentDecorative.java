@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 /**
  * Equipment decorative class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="EquipmentDecorative")
@@ -19,9 +21,9 @@ public class EquipmentDecorative extends Equipment{
 	public EquipmentDecorative() {}
 /**
  * Constructor
- * @param serial
- * @param name
- * @param owner
+ * @param serial Serial number of equipment as integer
+ * @param name String name of equipment
+ * @param owner Master who protects the equipment
  */
 	public EquipmentDecorative(Integer serial, String name, Master owner) {
 		super(serial, name);
@@ -41,6 +43,7 @@ public class EquipmentDecorative extends Equipment{
 	/**
 	 * Sets id
 	 * @param id	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
@@ -54,7 +57,7 @@ public class EquipmentDecorative extends Equipment{
 	}
 	/**
 	 * Sets owner
-	 * @param owner
+	 * @param master Master who protects the equipment
 	 */
 	public void setOwner(Master master) {
 		this.owner = master;

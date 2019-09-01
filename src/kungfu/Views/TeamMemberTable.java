@@ -1,14 +1,16 @@
 package kungfu.Views;
 import java.util.*;
 
-import kungfu.Controller;
 import kungfu.Classes.*;
 import javax.swing.table.AbstractTableModel;
 
-import org.hibernate.Session;
 
 public class TeamMemberTable extends AbstractTableModel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8579078056243849376L;
 	private List<MemberTeam> memteams = new ArrayList<>();
 	public TeamMemberTable(Member m) {
 		this.memteams = m.getMemberTeams();

@@ -7,8 +7,10 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 /**
- * Caretaker class
- * @see java.lang.Object
+ * Caretaker of a minor
+ * @version 1.0
+ * @author magda
+ *
  */
 @Entity(name="Caretaker")
 public class Caretaker {
@@ -20,9 +22,9 @@ public class Caretaker {
 	private Caretaker() {}
 	/**
 	 * Caretaker constructor
-	 * @param p
-	 * @param type
-	 * @throws Exception
+	 * @param p Person to be Caretaker
+	 * @param type Enum of type of Caretaker (Mother, Father, Other)
+	 * @throws Exception of null Person
 	 */
 	private Caretaker(Person p, Type type) throws Exception {
 		if(p == null) throw new Exception("Person must exist to become caretaker");
@@ -31,6 +33,13 @@ public class Caretaker {
 		this.type = type;
 		p.setCaretaker(this);
 	}
+	/**
+	 * Static method to create Caretaker object
+	 * @param p Person to become Caretaker 
+	 * @param type Enum of type of Caretaker (Mother, Father, Other)
+	 * @return Caretaker
+	 * @throws Exception if Person doesn't exist
+	 */
 	public static Caretaker createCaretaker(Person p, Type type) throws Exception {
 		if(p==null)throw new Exception("Osoba nie istnieje");
 		Caretaker c = new Caretaker(p, type);
@@ -49,14 +58,14 @@ public class Caretaker {
     }
 	/**
 	 * Sets id
-	 * @param long
+	 * @param id
 	 */
 	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
 	/**
-	 * Gets type
+	 * Gets type of Caretaker
 	 * @return Type
 	 */
 	@Basic
@@ -64,16 +73,15 @@ public class Caretaker {
 		return type;
 	}
 	/**
-	 * Sets Type
-	 * @param Type
+	 * Sets Type of Caretaker
+	 * @param type Enum of Mother, Father or Other
 	 */
 	public void setType(Type type) {
 		this.type = type;
 	}
 	/**
 	 * Gets Person
-	 * Assocation
-	 * 
+	 * Assocation 
 	 * @return Person
 	 */
 	  //asocjacja
@@ -84,8 +92,8 @@ public class Caretaker {
 	}
 	   /**
 	    * Sets person
-	    * @param Person
-	    * @throws Exception
+	    * @param person to be associated
+	    * @throws Exception is person is set to null
 	    */
 	public void setPerson(Person person) throws Exception {
 		if(person == null) throw new Exception("Can't nullify person");
@@ -95,38 +103,38 @@ public class Caretaker {
 	/**
 	 * Association
 	 * Gets List of protegees
-	 * @return Student list
+	 * @return List<Student> list
 	 */
 	@OneToMany(mappedBy = "caretaker", cascade = CascadeType.ALL, orphanRemoval = true)
 	   private List<Student> getCaredFor(){
 		   return this.caredFor;
 	   }
 	/**
-	 * Add student
-	 * @param Student
+	 * Add student to be cared for
+	 * @param student to be added
 	 */
-	   public void addCaredFor(Student s) {
-		   getCaredFor().add(s);
-		   s.setCaretaker(this);
+	   public void addCaredFor(Student student) {
+		   getCaredFor().add(student);
+		   student.setCaretaker(this);
 	   }
 	   /**
-	    * remove student
-	    * @param Student
+	    * Remove student being cared for
+	    * @param s Student to be removed 
 	    */
 	   public void removeCaredFor(Student s) {
 		   getCaredFor().remove(s);
 		   s.setCaretaker(null);
 	   }
 	   /**
-	    * Sets cared for
-	    * @param Student list
+	    * Sets cared for students
+	    * @param list list of Student objects
 	    */
-	   public void setCaredFor(List<Student> pg) {
-		   this.caredFor = pg;
+	   public void setCaredFor(List<Student> list) {
+		   this.caredFor = list;
 	   } 
 	   /**
-	    * Pay fee for minor
-	    * @param Student
+	    * Pay fee for minor cared for
+	    * @param s Student to be payed for
 	    */
 	   public void payForCaredOne(Student s) {
 		   if(caredFor.contains(s))

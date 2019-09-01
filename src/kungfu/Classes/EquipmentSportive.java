@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 /**
  * Equipment sportive class
+ * @version 1.0
+ * @author magda
  * @see java.lang.Object
  */
 @Entity(name="EquipmentSportive")
@@ -25,9 +27,9 @@ public class EquipmentSportive extends Equipment{
 	public EquipmentSportive() {}
 /**
  * Constructor
- * @param serial
- * @param name
- * @param mingrade
+ * @param serial Serial number of the equipment as Integer
+ * @param name Name of the equipment
+ * @param mingrade Minimum grade of member to be able to rent equipment
  */
 	public EquipmentSportive(Integer serial, String name, Integer mingrade) {
 		super(serial, name);
@@ -47,11 +49,12 @@ public class EquipmentSportive extends Equipment{
 	 * Sets id
 	 * @param id
 	 */
+	@SuppressWarnings("unused")
 	private void setId(long id) {
         this.id = id;
     }
 	/**
-	 * Gets min grade
+	 * Gets minimum grade of member to be able to rent equipment
 	 * @return minGrade
 	 */
 	@Basic
@@ -59,8 +62,8 @@ public class EquipmentSportive extends Equipment{
 		return minGrade;
 	}
 	/**
-	 * Sets min grade
-	 * @param minGrade
+	 * Sets minimum grade of member to be able to rent equipment
+	 * @param minGrade Minimum grade of member to be able to rent equipment
 	 */
 	public void setMinGrade(Integer minGrade) {
 		this.minGrade = minGrade;
@@ -76,14 +79,14 @@ public class EquipmentSportive extends Equipment{
 	}
 /**
  * Sets Rented
- * @param rented
+ * @param rented List of rentals (who and dates) 
  */
 	public void setRented(List<Rental> rented) {
 		this.rented = rented;
 	}
 	/**
-	 * Add Rented
-	 * @param rent
+	 * Add Rental
+	 * @param rent Rental of the equipment
 	 */
 	public void addRented(Rental rent) {
 		if(!this.rented.contains(rent)) {
@@ -92,8 +95,8 @@ public class EquipmentSportive extends Equipment{
 		}
 	}
 	/**
-	 * Remove rented
-	 * @param rent
+	 * Remove rental
+	 * @param rent Rental of the equipment
 	 */
 	public void removeRented(Rental rent) {
 		if(this.rented.contains(rent)) {
