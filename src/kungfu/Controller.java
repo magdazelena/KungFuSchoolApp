@@ -176,7 +176,6 @@ public class Controller {
 			session.save(rentMakiwara); session.save(rentManekin);
 			//test data
 			session.getTransaction().commit();
-			session.flush();
 			session.close();
 			session.getSessionFactory().close();
 		}
